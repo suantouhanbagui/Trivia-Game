@@ -1,15 +1,17 @@
 package entities;
 
+import java.util.ArrayList;
+
 public class Question {
     private final String questionText;
     private final String correctAnswer;
-    private final String[] incorrectAnswers;
+    private final ArrayList<String> incorrectAnswers;
     private final String difficulty;
     private final String category;
     private final String type;
 
     public Question(String questionText, String correctAnswer,
-                    String[] incorrectAnswers, String difficulty, String category, String type){
+                    ArrayList<String> incorrectAnswers, String difficulty, String category, String type){
         this.questionText = questionText;
         this.correctAnswer = correctAnswer;
         this.incorrectAnswers = incorrectAnswers;
@@ -26,7 +28,7 @@ public class Question {
         return correctAnswer;
     }
 
-    public String[] getIncorrectAnswers(){
+    public ArrayList<String> getIncorrectAnswers(){
         return incorrectAnswers;
     }
 
