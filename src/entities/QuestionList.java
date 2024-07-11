@@ -61,5 +61,4 @@ public class QuestionList {
     public boolean hasMoreQuestions(){
         return currentQuestionIndex < this.amount;
     }
-
 }
