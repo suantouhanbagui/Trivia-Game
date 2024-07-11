@@ -8,6 +8,7 @@ public class QuestionList {
     private final String difficulty;
     private final String type;
     private final ArrayList<Question> questions;
+    private int currentQuestionIndex;
 
     //default settings for a game
     public QuestionList() {
@@ -16,6 +17,7 @@ public class QuestionList {
         difficulty = "Any Difficulty";
         type = "Any Type";
         questions = new ArrayList<>(this.amount);
+        currentQuestionIndex = 0;
     }
     public QuestionList(int amount, String category, String difficulty, String type) {
         this.amount = amount;
@@ -23,6 +25,7 @@ public class QuestionList {
         this.difficulty = difficulty;
         this.type = type;
         this.questions = new ArrayList<Question>(amount);
+        this.currentQuestionIndex = 0;
     }
     public ArrayList<Question> getQuestions() {
         return questions;
@@ -37,6 +40,7 @@ public class QuestionList {
         this.questions.add(question);
     }
 
+
     // Method to print questions with answers
     public void printQuestions() {
         for (int i = 0; i < questions.size(); i++) {
@@ -46,5 +50,16 @@ public class QuestionList {
             System.out.println("Wrong Answer: " + question.getIncorrectAnswers());
             System.out.println(); // Add a blank line for separation
         }
+
+    public Question getNextQuestion(){
+        if (currentQuestionIndex < this.amount){
+            return questions.get(currentQuestionIndex++);
+        }
+        return null;
+    }
+
+    public boolean hasMoreQuestions(){
+        return currentQuestionIndex < this.amount;
+
     }
 }
