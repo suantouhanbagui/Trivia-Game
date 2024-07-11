@@ -50,7 +50,7 @@ public class QuestionList {
             System.out.println("Wrong Answer: " + question.getIncorrectAnswers());
             System.out.println(); // Add a blank line for separation
         }
-
+    }
     public Question getNextQuestion(){
         if (currentQuestionIndex < this.amount){
             return questions.get(currentQuestionIndex++);
@@ -60,6 +60,5 @@ public class QuestionList {
 
     public boolean hasMoreQuestions(){
         return currentQuestionIndex < this.amount;
-
     }
 }
