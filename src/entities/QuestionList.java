@@ -51,14 +51,14 @@ public class QuestionList {
             System.out.println(); // Add a blank line for separation
         }
     }
-    public Question getNextQuestion(){
-        if (currentQuestionIndex < this.amount){
+    public Question getNextQuestion() {
+        if (currentQuestionIndex < this.amount) {
             return questions.get(currentQuestionIndex++);
         }
         return null;
     }
 
-    public boolean hasMoreQuestions(){
+    public boolean hasMoreQuestions() {
         return currentQuestionIndex < this.amount;
     }
 }
