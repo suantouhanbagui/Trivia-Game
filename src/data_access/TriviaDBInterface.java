@@ -1,4 +1,4 @@
-package api;
+package data_access;
 
 import entities.QuestionList;
 
@@ -16,7 +16,7 @@ public interface TriviaDBInterface {
      *        be thrown.
      * @param category the category of the generated questions. Must be one of
      *        the following: "General Knowledge", "Entertainment: Books",
-     *        "Entertainment: Film", "Entertainment: Music",
+     *        "Entertainment: "Film", "Entertainment: Music",
      *        "Entertainment: Musicals & Theatres",
      *        "Entertainment: Television", "Entertainment: Video Games",
      *        "Entertainment: Board Games", "Science & Nature",

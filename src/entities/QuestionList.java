@@ -40,6 +40,17 @@ public class QuestionList {
         this.questions.add(question);
     }
 
+
+    // Method to print questions with answers
+    public void printQuestions() {
+        for (int i = 0; i < questions.size(); i++) {
+            Question question = questions.get(i);
+            System.out.println("Question " + (i + 1) + ": " + question.getQuestionText());
+            System.out.println("Answer: " + question.getCorrectAnswer());
+            System.out.println("Wrong Answer: " + question.getIncorrectAnswers());
+            System.out.println(); // Add a blank line for separation
+        }
+
     public Question getNextQuestion(){
         if (currentQuestionIndex < this.amount){
             return questions.get(currentQuestionIndex++);
@@ -49,5 +60,6 @@ public class QuestionList {
 
     public boolean hasMoreQuestions(){
         return currentQuestionIndex < this.amount;
+
     }
 }
