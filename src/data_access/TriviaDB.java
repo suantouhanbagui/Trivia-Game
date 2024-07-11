@@ -1,7 +1,8 @@
-package api;
+package data_access;
 
 import entities.Question;
 import entities.QuestionList;
+import org.apache.commons.lang3.StringEscapeUtils;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -10,6 +11,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
 
 /**
  * Concrete implementation of DBInterface.
@@ -57,10 +59,13 @@ public class TriviaDB implements TriviaDBInterface {
             JSONArray incorrectAnswers = questionJSON.getJSONArray("incorrect_answers");
             ArrayList<String> incorrectAnswersArray = new ArrayList<>(incorrectAnswers.length());
             for (int j = 0; j < incorrectAnswers.length(); j++) {
-                incorrectAnswersArray.add(incorrectAnswers.getString(j));
+                incorrectAnswersArray.add(StringEscapeUtils.unescapeHtml4(incorrectAnswers.getString(j)));
             }
-            Question question = new Question(questionJSON.getString("question"),
-                    questionJSON.getString("correct_answer"),
+            String questionText = StringEscapeUtils.unescapeHtml4(questionJSON.getString("question"));
+            String correctAnswer = StringEscapeUtils.unescapeHtml4(questionJSON.getString("correct_answer"));
+
+            Question question = new Question(questionText,
+                    correctAnswer,
                     incorrectAnswersArray,
                     questionJSON.getString("difficulty"),
                     questionJSON.getString("category"),
