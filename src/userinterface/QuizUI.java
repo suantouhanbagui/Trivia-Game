@@ -10,8 +10,8 @@ import entities.QuestionList;
 import entities.Question;
 
 public class QuizUI extends JFrame {
-    private JLabel questionLabel;
-    private List<JButton> answerButtons;
+    private final JLabel questionLabel;
+    private final List<JButton> answerButtons;
     private QuestionList questionList;
     private Question currentQuestion;
 
