@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
+import data_access.TriviaDB;
 import entities.QuestionList;
 import entities.Question;
 
@@ -69,11 +70,7 @@ public class QuizUI extends JFrame {
     }
 
     private void loadQuestions() {
-        ArrayList<String> incorrectAnswers = new ArrayList<>();
-        incorrectAnswers.add("Option 1");
-        incorrectAnswers.add("Option 2");
-        incorrectAnswers.add("Option 3");
-        questionList.addQuestion(new Question("Sample Question?", "Correct Answer", incorrectAnswers,  "Easy", "General Knowledge", "Multiple Choice"));
+        questionList = new TriviaDB().getQuestions(10, "General Knowledge", "Easy", "Multiple Choice");
     }
 
     private class AnswerButtonListener implements ActionListener {
