@@ -35,8 +35,6 @@ public class QuizUI extends JFrame {
             answerPanel.add(button);
         }
         add(answerPanel, BorderLayout.CENTER);
-
-        questionList = new QuestionList();
         loadQuestions();
         loadNextQuestion();
 
