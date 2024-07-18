@@ -5,7 +5,6 @@ import data_access.TriviaDB;
 import data_access.TriviaDBInterface;
 import use_case.*;
 
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
