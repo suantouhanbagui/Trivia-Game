@@ -3,16 +3,20 @@ package app;
 import entities.QuestionList;
 import data_access.TriviaDB;
 import data_access.TriviaDBInterface;
-import use_case.GamePlayFunctionsInterface;
-import use_case.GamePlayFunctions;
-import use_case.RecordResult;
-import use_case.RetrieveResults;
+import use_case.*;
+
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        System.out.println("Welcome to our trivia game ~~~~");
+        // Gather settings for the game
+        EditGameSettings settings = new EditGameSettings();
+
         // Create questions
         TriviaDBInterface triviaDB = new TriviaDB();
-        QuestionList questionList = triviaDB.getQuestions(10, "General Knowledge", "Easy", "Multiple Choice");
+        QuestionList questionList = triviaDB.getQuestions(settings.getAmount(), settings.getCategory(),
+                settings.getDifficulty(), settings.getType());
 
         // Initialize the game
         GamePlayFunctionsInterface game = new GamePlayFunctions();
