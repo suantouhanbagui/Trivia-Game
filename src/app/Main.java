@@ -8,7 +8,7 @@ import use_case.*;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Welcome to our trivia game ~~~~");
+        System.out.println("Welcome!");
         // Gather settings for the game
         EditGameSettings settings = new EditGameSettings();
 

@@ -5,6 +5,9 @@ import java.util.Scanner;
 /**
  * Use case interactor to gather the desired settings for the game.
  */
+
+// some setting combinations can be invalid (ie not enough questions), find a way to handle?
+
 public class EditGameSettings {
     private final int amount;
     private final String category;
@@ -30,14 +33,14 @@ public class EditGameSettings {
             amount = sc.nextInt();
             System.out.println("Question categories available: ");
             System.out.println("General Knowledge, Entertainment: Books,");
-            System.out.println("Entertainment: Film, Entertainment: Music");
+            System.out.println("Entertainment: Film, Entertainment: Music,");
             System.out.println("Entertainment: Musicals and Theatres");
-            System.out.println("Entertainment: Television, Entertainment: Video Games");
-            System.out.println("Entertainment: Board Games, Science and Nature");
-            System.out.println("Science: Computers, Science: Mathematics, Mythology");
-            System.out.println("Sports, Geography, History, Politics, Art");
-            System.out.println("Celebrities, Animals, Vehicles, Entertainment: Comics");
-            System.out.println("Science: Gadgets, Entertainment: Japanese Anime & Manga");
+            System.out.println("Entertainment: Television, Entertainment: Video Games,");
+            System.out.println("Entertainment: Board Games, Science and Nature,");
+            System.out.println("Science: Computers, Science: Mathematics, Mythology,");
+            System.out.println("Sports, Geography, History, Politics, Art,");
+            System.out.println("Celebrities, Animals, Vehicles, Entertainment: Comics,");
+            System.out.println("Science: Gadgets, Entertainment: Japanese Anime & Manga,");
             System.out.println("Entertainment: Cartoon & Animations");
             System.out.println("Please enter question category: ");
             sc.nextLine();
