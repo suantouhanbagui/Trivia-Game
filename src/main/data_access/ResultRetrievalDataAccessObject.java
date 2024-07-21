@@ -16,7 +16,7 @@ public class ResultRetrievalDataAccessObject {
      *         reader fails.
      */
     public ResultRetrievalDataAccessObject() throws IOException {
-        File resultFile = new File("src\\main.data_access\\result.txt");
+        File resultFile = new File("src\\main\\data_access\\result.txt");
         FileReader fileReader = new FileReader(resultFile);
         resultsFileReader = new BufferedReader(fileReader);
     }
