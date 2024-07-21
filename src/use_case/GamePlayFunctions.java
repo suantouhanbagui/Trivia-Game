@@ -15,6 +15,7 @@ import java.util.Scanner;
 public class GamePlayFunctions implements GamePlayFunctionsInterface {
     private Player[] players;
     private int currentPlayerIndex = 0;
+    private final StringBuilder results = new StringBuilder();
 
     /**
      * Starts the game with the given players and question list.
@@ -71,8 +72,12 @@ public class GamePlayFunctions implements GamePlayFunctionsInterface {
      */
     private void determineWinner() {
         Player winner = players[0];
+        results.append(winner.toString());
+        results.append("; ");
         boolean tie = false;
         for (int i = 1; i < players.length; i++) {
+            results.append(players[i].toString());
+            results.append("; ");
             if (players[i].getScore() > winner.getScore()) {
                 winner = players[i];
                 tie = false;
@@ -82,9 +87,19 @@ public class GamePlayFunctions implements GamePlayFunctionsInterface {
         }
 
         if (tie) {
+            results.append("Result: Tie");
             System.out.println("The game is a tie!");
+
         } else {
+            results.append("Result: ");
+            results.append(winner.getName());
+            results.append(" wins!");
             System.out.println("The winner is: " + winner.getName() + " with a score of " + winner.getScore());
         }
+
+        }
+
+    public String getResults(){
+        return results.toString();
     }
 }
