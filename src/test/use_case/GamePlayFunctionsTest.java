@@ -47,16 +47,17 @@ class GamePlayFunctionsTest {
 
     @Test
     void startGameTestCorrectAnswer() {
-        String input = "1\n";
-        InputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
-
         QuestionList questionList = new QuestionList(1, "Any Category", "Any Difficulty", "Multiple Choice");
         ArrayList<String> wrongAnswers = new ArrayList<>(Arrays.asList("wrong", "wrong", "wrong"));
         Question question1 = new Question("?", "correct", wrongAnswers, "Any Difficulty", "Any Category", "Multiple Choice");
         questionList.addQuestion(question1);
 
         gamePlayFunctions.startGame(questionList, "Alice", "Bob");
+
+        String input = "1\n";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
         String output = outputStream.toString();
         assertTrue(output.contains("Correct! Your score: 1"));
     }
