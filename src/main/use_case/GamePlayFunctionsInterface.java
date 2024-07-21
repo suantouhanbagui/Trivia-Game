@@ -1,6 +1,6 @@
-package use_case;
+package main.use_case;
 
-import entities.QuestionList;
+import main.entities.QuestionList;
 
 /**
  * This interface defines the methods required for game play functionality.

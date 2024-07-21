@@ -1,4 +1,4 @@
-package entities;
+package main.entities;
 
 public class VisualizationSettings {
     private final boolean MusicEnabled;

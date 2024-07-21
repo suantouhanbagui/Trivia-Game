@@ -1,6 +1,6 @@
-package data_access;
+package main.data_access;
 
-import entities.QuestionList;
+import main.entities.QuestionList;
 
 /**
  * Interface for a data access object that interacts with the opentdb.com

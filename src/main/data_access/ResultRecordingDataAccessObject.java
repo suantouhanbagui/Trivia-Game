@@ -1,4 +1,4 @@
-package data_access;
+package main.data_access;
 
 import java.io.*;
 
@@ -14,7 +14,7 @@ public class ResultRecordingDataAccessObject {
      * @throws IOException when creation of the text file or writer fails.
      */
     public ResultRecordingDataAccessObject() throws IOException {
-        File resultFile = new File("src\\data_access\\result.txt");
+        File resultFile = new File("src\\main.data_access\\result.txt");
         FileWriter fileWriter = new FileWriter(resultFile,true);
         resultFileWriter = new BufferedWriter(fileWriter);
     }

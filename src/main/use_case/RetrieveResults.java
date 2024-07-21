@@ -1,6 +1,6 @@
-package use_case;
+package main.use_case;
 
-import data_access.ResultRetrievalDataAccessObject;
+import main.data_access.ResultRetrievalDataAccessObject;
 
 import java.io.IOException;
 import java.util.ArrayList;

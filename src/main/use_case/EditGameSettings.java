@@ -1,4 +1,4 @@
-package use_case;
+package main.use_case;
 
 import java.util.Scanner;
 

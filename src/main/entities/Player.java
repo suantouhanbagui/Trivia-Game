@@ -1,4 +1,4 @@
-package entities;
+package main.entities;
 
 /** Entity to represent a player. */
 public class Player implements Comparable<Player>{

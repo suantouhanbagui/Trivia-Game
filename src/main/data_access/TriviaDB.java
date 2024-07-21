@@ -1,7 +1,7 @@
-package data_access;
+package main.data_access;
 
-import entities.Question;
-import entities.QuestionList;
+import main.entities.Question;
+import main.entities.QuestionList;
 import org.apache.commons.lang3.StringEscapeUtils;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

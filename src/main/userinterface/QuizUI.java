@@ -1,4 +1,4 @@
-package userinterface;
+package main.userinterface;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -6,9 +6,9 @@ import java.awt.event.ActionListener;
 import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
-import data_access.TriviaDB;
-import entities.QuestionList;
-import entities.Question;
+import main.data_access.TriviaDB;
+import main.entities.QuestionList;
+import main.entities.Question;
 
 public class QuizUI extends JFrame {
     private final JLabel questionLabel;

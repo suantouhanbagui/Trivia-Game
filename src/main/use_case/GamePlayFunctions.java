@@ -1,8 +1,8 @@
-package use_case;
+package main.use_case;
 
-import entities.Player;
-import entities.Question;
-import entities.QuestionList;
+import main.entities.Player;
+import main.entities.Question;
+import main.entities.QuestionList;
 
 import java.util.ArrayList;
 import java.util.Collections;

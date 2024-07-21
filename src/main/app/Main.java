@@ -1,9 +1,9 @@
-package app;
+package main.app;
 
-import entities.QuestionList;
-import data_access.TriviaDB;
-import data_access.TriviaDBInterface;
-import use_case.*;
+import main.entities.QuestionList;
+import main.data_access.TriviaDB;
+import main.data_access.TriviaDBInterface;
+import main.use_case.*;
 
 
 public class Main {
