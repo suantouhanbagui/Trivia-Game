@@ -13,5 +13,8 @@
   <img src="images/image3.png" alt="Image" width="400"/>
   <img src="images/image4.png" alt="Image" width="400"/>
 
+### How SOLID Has Been Used
+- Single Responsibility Principle: Each of our classes has only one responsibility. For example, instead of having one class that manages both the recording and the retrieval of the results for the game, we have one class that has the responsibility of retrieving the game's results and a different class that has the responsibility of recording the game's results.
+- Interface Segregation Principle: Instead of having large general interfaces, we have several smaller specific interfaces such as GamePlayFunctionsInterface and TriviaDBInterface. This ensures that no class will have to implement irrelevant methods of an interface, which is what the Interface Segregation Principle is defined as. 
 ### What Needs to Be Finished
 - Next, we need to integrate our UI with the main game to display questions and capture user input. We also need to implement settings selection in the main menu. Additionally, we may look into creating a single-player mode and potentially adding support for more than two players if time permits.
