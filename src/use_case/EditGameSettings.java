@@ -2,16 +2,15 @@ package use_case;
 
 import java.util.Scanner;
 
-/**
- * Use case interactor to gather the desired settings for the game.
- */
-
-// some setting combinations can be invalid (ie not enough questions), find a way to handle?
-
+/** Use case interactor to gather the desired settings for the game. */
 public class EditGameSettings {
+    /** Amount of questions to generate. */
     private final int amount;
+    /** Category of the questions. */
     private final String category;
+    /** Difficulty of the questions. */
     private final String difficulty;
+    /** Type of the questions. */
     private final String type;
 
     /**
@@ -53,15 +52,39 @@ public class EditGameSettings {
             type = sc.nextLine();
         }
     }
+
+    /**
+     * Retrieve the amount of questions.
+     *
+     * @return hte amount of questions.
+     */
     public int getAmount(){
         return amount;
     }
+
+    /**
+     * Retrieve the category of the questions.
+     *
+     * @return the category of the questions.
+     */
     public String getCategory(){
         return category;
     }
+
+    /**
+     * Retrieve the difficulty of the questions.
+     *
+     * @return the difficulty of the questions.
+     */
     public String getDifficulty(){
         return difficulty;
     }
+
+    /**
+     * Retrieve the type of the questions.
+     *
+     * @return the type of the questions.
+     */
     public String getType(){
         return type;
     }
