@@ -1,12 +1,12 @@
-package app;
+package main.app;
 
-import entities.QuestionList;
-import data_access.TriviaDB;
-import data_access.TriviaDBInterface;
-import use_case.GamePlayFunctionsInterface;
-import use_case.GamePlayFunctions;
-import use_case.RecordResult;
-import use_case.RetrieveResults;
+import main.entities.QuestionList;
+import main.data_access.TriviaDB;
+import main.data_access.TriviaDBInterface;
+import main.use_case.GamePlayFunctionsInterface;
+import main.use_case.GamePlayFunctions;
+import main.use_case.RecordResult;
+import main.use_case.RetrieveResults;
 
 public class Main {
     public static void main(String[] args) {

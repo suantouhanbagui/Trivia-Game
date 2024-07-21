@@ -1,4 +1,4 @@
-package data_access;
+package main.data_access;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ public class ResultRetrievalDataAccessObject {
     private final BufferedReader resultsFileReader;
 
     public ResultRetrievalDataAccessObject() throws IOException {
-        File resultFile = new File("src\\data_access\\result.txt");
+        File resultFile = new File("src\\main.data_access\\result.txt");
         FileReader fileReader = new FileReader(resultFile);
         resultsFileReader = new BufferedReader(fileReader);
     }

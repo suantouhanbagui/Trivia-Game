@@ -1,4 +1,4 @@
-package entities;
+package main.entities;
 
 public class Player implements Comparable<Player>{
     private final String name;

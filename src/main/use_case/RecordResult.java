@@ -1,6 +1,6 @@
-package use_case;
+package main.use_case;
 
-import data_access.ResultRecordingDataAccessObject;
+import main.data_access.ResultRecordingDataAccessObject;
 
 import java.io.IOException;
 

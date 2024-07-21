@@ -1,8 +1,8 @@
-package use_case;
+package main.use_case;
 
-import entities.Player;
-import entities.Question;
-import entities.QuestionList;
+import main.entities.Player;
+import main.entities.Question;
+import main.entities.QuestionList;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -70,7 +70,7 @@ public class GamePlayFunctions implements GamePlayFunctionsInterface {
     /**
      * Determines and displays the winner of the game.
      */
-    private void determineWinner() {
+    public void determineWinner() {
         Player winner = players[0];
         results.append(winner.toString());
         results.append("; ");
