@@ -52,11 +52,10 @@ class GamePlayFunctionsTest {
         Question question1 = new Question("?", "correct", wrongAnswers, "Any Difficulty", "Any Category", "Multiple Choice");
         questionList.addQuestion(question1);
 
-        gamePlayFunctions.startGame(questionList, "Alice", "Bob");
-
         String input = "1\n";
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
+        gamePlayFunctions.startGame(questionList, "Alice", "Bob");
 
         String output = outputStream.toString();
         assertTrue(output.contains("Correct! Your score: 1"));
