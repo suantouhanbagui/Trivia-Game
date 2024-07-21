@@ -18,6 +18,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static test.TestingHelperFunctions.callPrivateMethod;
 import static test.TestingHelperFunctions.setPrivateVariableHelper;
 
 // NOTE: Need Mockito to properly test this, but I can't figure it out atm. I will come back to it later.
@@ -77,7 +78,7 @@ class GamePlayFunctionsTest {
     }
 
     @Test
-    void getResultsClearWinner() throws NoSuchFieldException, IllegalAccessException {
+    void getResultsClearWinner() throws Exception {
         Player Alice = new Player("Alice");
         setPrivateVariableHelper(Alice, "score", 500);
         Player Bob = new Player("Bob");
@@ -85,7 +86,7 @@ class GamePlayFunctionsTest {
         Player[] playerArray = new Player[] {Alice, Bob};
 
         setPrivateVariableHelper(gamePlayFunctions, "players", playerArray);
-        gamePlayFunctions.determineWinner();
+        callPrivateMethod(gamePlayFunctions, "determineWinner", new Class[]{}, new Object[]{});
         assertEquals("Alice, 500; Bob, 0; Result: Alice wins!", gamePlayFunctions.getResults());
 
         String output = outputStream.toString();
@@ -94,7 +95,7 @@ class GamePlayFunctionsTest {
     }
 
     @Test
-    void getResultsTestTie() throws NoSuchFieldException, IllegalAccessException {
+    void getResultsTestTie() throws Exception {
         Player Alice = new Player("Alice");
         setPrivateVariableHelper(Alice, "score", 500);
         Player Bob = new Player("Bob");
@@ -102,7 +103,7 @@ class GamePlayFunctionsTest {
         Player[] playerArray = new Player[] {Alice, Bob};
 
         setPrivateVariableHelper(gamePlayFunctions, "players", playerArray);
-        gamePlayFunctions.determineWinner();
+        callPrivateMethod(gamePlayFunctions, "determineWinner", new Class[]{}, new Object[]{});
         assertEquals("Alice, 500; Bob, 500; Result: Tie", gamePlayFunctions.getResults());
 
         String output = outputStream.toString();

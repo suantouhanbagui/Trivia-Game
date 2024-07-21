@@ -2,7 +2,6 @@ package test.entities;
 
 import main.entities.Question;
 import main.entities.QuestionList;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ class QuestionListTest {
 
     @Test
     void constructorTest() throws NoSuchFieldException, IllegalAccessException {
-        QuestionList list = new QuestionList();
+        QuestionList list = new QuestionList(10, "Any Category", "Any Difficulty", "Multiple Choice");
         assertEquals(10, (int) getPrivateVariableHelper(list, "amount"));
         assertEquals("Any Category", list.getCategory());
         assertEquals("Any Difficulty", list.getDifficulty());
@@ -89,10 +88,13 @@ class QuestionListTest {
 
     @Test
     void getDifficultyTest() {
-        QuestionList defaultList = new QuestionList();
-        assertEquals("Any Difficulty", defaultList.getDifficulty());
+        QuestionList easyList = new QuestionList(4, "Art", "Easy", "Multiple Choice");
+        assertEquals("Easy", easyList.getDifficulty());
 
-        QuestionList customList = new QuestionList(4, "Art", "Hard", "Multiple Choice");
-        assertEquals("Hard", customList.getDifficulty());
+        QuestionList mediumList = new QuestionList(4, "Art", "Medium", "Multiple Choice");
+        assertEquals("Medium", mediumList.getDifficulty());
+
+        QuestionList hardList = new QuestionList(4, "Art", "Hard", "Multiple Choice");
+        assertEquals("Hard", hardList.getDifficulty());
     }
 }

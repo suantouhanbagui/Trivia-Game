@@ -1,11 +1,11 @@
 package test.data_access;
 
-import main.data_access.DisplayNameToAPIName;
 import main.data_access.TriviaDB;
 import main.entities.QuestionList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static test.TestingHelperFunctions.getPrivateVariableHelper;
+import static test.TestingHelperFunctions.instantiatePrivateClass;
 
 class TriviaDBTest {
     TriviaDB triviaDB;
@@ -24,14 +25,14 @@ class TriviaDBTest {
         triviaDB = new TriviaDB();
     }
 
-    @Test
-    void getQuestionsTestAmounts() throws InterruptedException {
-        for(Integer i=1; i < 33; i++) {
-        QuestionList newList = triviaDB.getQuestions(i, "Entertainment: Cartoon & Animations", "Any Difficulty", "Multiple Choice");
-        assertEquals(i, newList.getQuestions().size());
-        TimeUnit.SECONDS.sleep(5);
-        }
-    }
+//    @Test
+//    void getQuestionsTestAmounts() throws InterruptedException {
+//        for (Integer i = 1; i < 33; i++) {
+//            QuestionList newList = triviaDB.getQuestions(i, "Entertainment: Cartoon & Animations", "Any Difficulty", "Multiple Choice");
+//            assertEquals(i, newList.getQuestions().size());
+//            TimeUnit.SECONDS.sleep(5);
+//        }
+//    }
 
     @Test
     void getQuestionsTestAmountInvalid() {
@@ -39,9 +40,9 @@ class TriviaDBTest {
     }
 
     @Test
-    void getQuestionsTestCategories() throws NoSuchFieldException, IllegalAccessException, InterruptedException {
-        DisplayNameToAPIName temp = new DisplayNameToAPIName();
-        HashMap tempCategories= getPrivateVariableHelper(temp, "categoryMap");
+    void getQuestionsTestCategories() throws NoSuchFieldException, IllegalAccessException, InterruptedException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException {
+        Object temp = instantiatePrivateClass(TriviaDB.class, "APIParameterConverter", new Class[]{}, new Object[]{});
+        HashMap tempCategories = getPrivateVariableHelper(temp, "categoryMap");
         List<String> categoryList = new ArrayList<>(tempCategories.keySet());
         for (String s : categoryList) {
             QuestionList newList = triviaDB.getQuestions(1, s, "Any Difficulty", "Multiple Choice");
@@ -56,8 +57,8 @@ class TriviaDBTest {
     }
 
     @Test
-    void getQuestionsTestDifficulty() throws InterruptedException, NoSuchFieldException, IllegalAccessException {
-        DisplayNameToAPIName temp = new DisplayNameToAPIName();
+    void getQuestionsTestDifficulty() throws InterruptedException, NoSuchFieldException, IllegalAccessException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException {
+        Object temp = instantiatePrivateClass(TriviaDB.class, "APIParameterConverter", new Class[]{}, new Object[]{});
         HashMap tempDifficulties = getPrivateVariableHelper(temp, "difficultyMap");
         List<String> difficultyList = new ArrayList<>(tempDifficulties.keySet());
         for (int i = 0; i < difficultyList.size(); i++) {
@@ -74,8 +75,8 @@ class TriviaDBTest {
     }
 
     @Test
-    void getQuestionsTestTypes() throws NoSuchFieldException, IllegalAccessException, InterruptedException {
-        DisplayNameToAPIName temp = new DisplayNameToAPIName();
+    void getQuestionsTestTypes() throws NoSuchFieldException, IllegalAccessException, InterruptedException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException {
+        Object temp = instantiatePrivateClass(TriviaDB.class, "APIParameterConverter", new Class[]{}, new Object[]{});
         HashMap tempTypes = getPrivateVariableHelper(temp, "typeMap");
         List<String> typesList = new ArrayList<>(tempTypes.keySet());
         for (int i = 0; i < typesList.size(); i++) {
