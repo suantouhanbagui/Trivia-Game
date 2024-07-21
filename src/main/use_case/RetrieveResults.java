@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class RetrieveResults {
     private ResultRetrievalDataAccessObject resultsRetriever;
 
+    /** Instantiate a new use case interactor by creating a ResultRetrievalDataAccessObject. */
     public RetrieveResults() {
         try{
             resultsRetriever = new ResultRetrievalDataAccessObject();
@@ -19,6 +20,7 @@ public class RetrieveResults {
 
     /**
      * Retrieves a list of the results of all the games played so far, from result.txt.
+     *
      * @return a list of the results of all the previous games.
      */
     public ArrayList<String> retrieve(){

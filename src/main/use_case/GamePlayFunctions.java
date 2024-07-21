@@ -9,9 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * Implements the interface for game play functions.
- */
+/** Implements the interface for game play functions. */
 public class GamePlayFunctions implements GamePlayFunctionsInterface {
     private Player[] players;
     private int currentPlayerIndex = 0;
@@ -67,10 +65,8 @@ public class GamePlayFunctions implements GamePlayFunctionsInterface {
         determineWinner();
     }
 
-    /**
-     * Determines and displays the winner of the game.
-     */
-    public void determineWinner() {
+    /** Determines and displays the winner of the game. Also updates the results. */
+    private void determineWinner() {
         Player winner = players[0];
         results.append(winner.toString());
         results.append("; ");
@@ -99,6 +95,12 @@ public class GamePlayFunctions implements GamePlayFunctionsInterface {
 
         }
 
+    /**
+     * Creates a string representation of the results of this game. This should
+     * only be called after a game has been played and completed.
+     *
+     * @return a string representation of the results of this game.
+     */
     public String getResults(){
         return results.toString();
     }

@@ -3,11 +3,11 @@ package main.data_access;
 import main.entities.QuestionList;
 
 /**
- * Data access object that interacts with the opentdb.com trivia api to
- * generate trivia questions.
+ * Interface for a data access object that interacts with the opentdb.com
+ * trivia api to generate trivia questions.
  */
 public interface TriviaDBInterface {
-    /*
+    /**
      * Get questions from the API and return them in a QuestionList.
      *
      * @param amount the number of questions to generate. Must be between 1 and
@@ -30,7 +30,6 @@ public interface TriviaDBInterface {
      * @param type the type of the generated questions. Must be one of the
      *        following: "Any Type", "Multiple Choice", "True / False".
      * @return A QuestionList with the given settings.
-     * @throws RuntimeException whenever anything goes wrong.
      */
     QuestionList getQuestions(int amount, String category, String difficulty, String type);
 }
