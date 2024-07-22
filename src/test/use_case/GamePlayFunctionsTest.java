@@ -8,10 +8,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,26 +37,27 @@ class GamePlayFunctionsTest {
     }
 
     @AfterEach
-    void tearDown() {
+    void tearDown() throws IOException {
         System.setOut(originalOut);
         System.setIn(originalIn);
     }
 
-//    @Test
-//    void startGameTestCorrectAnswer() {
-//        QuestionList questionList = new QuestionList(1, "Any Category", "Any Difficulty", "Multiple Choice");
-//        ArrayList<String> wrongAnswers = new ArrayList<>(Arrays.asList("wrong", "wrong", "wrong"));
-//        Question question1 = new Question("?", "correct", wrongAnswers, "Any Difficulty", "Any Category", "Multiple Choice");
-//        questionList.addQuestion(question1);
-//
-//        String input = "1\n";
-//        InputStream in = new ByteArrayInputStream(input.getBytes());
-//        System.setIn(in);
-//        gamePlayFunctions.startGame(questionList, "Alice", "Bob");
-//
-//        String output = outputStream.toString();
-//        assertTrue(output.contains("Correct! Your score: 1"));
-//    }
+    @Test
+    void startGameTestCorrectAnswerTF(){
+        QuestionList questionList = new QuestionList(1, "Any Category", "Any Difficulty", "True / False");
+        ArrayList<String> wrongAnswers = new ArrayList<>(Arrays.asList("False"));
+        Question question1 = new Question("?", "True", wrongAnswers, "Any Difficulty", "Any Category", "True / False");
+        questionList.addQuestion(question1);
+
+        String input = "1\n";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        gamePlayFunctions.startGame(questionList, "Alice", "Bob");
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("Correct! Your score: 1"));
+    }
 
     @Test
     void startGameTestWrongAnswer() {

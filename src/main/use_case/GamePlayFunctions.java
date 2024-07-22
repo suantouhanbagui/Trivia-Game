@@ -4,10 +4,7 @@ import main.entities.Player;
 import main.entities.Question;
 import main.entities.QuestionList;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 /** Implements the interface for game play functions. */
 public class GamePlayFunctions implements GamePlayFunctionsInterface {
@@ -21,8 +18,9 @@ public class GamePlayFunctions implements GamePlayFunctionsInterface {
      * @param questionList The list of questions to be used in the game.
      * @param name1        The name of the first player.
      * @param name2        The name of the second player.
+     * @param isTest       For testing purposes only. Disables question shuffling if true.
      */
-    public void startGame(QuestionList questionList, String name1, String name2) {
+    public void startGame(QuestionList questionList, String name1, String name2, Boolean isTest) {
         // Initialize players
         Player player1 = new Player(name1);
         Player player2 = new Player(name2);
@@ -39,7 +37,17 @@ public class GamePlayFunctions implements GamePlayFunctionsInterface {
             System.out.println(question.getQuestionText());
             List<String> options = new ArrayList<>(question.getIncorrectAnswers());
             options.add(question.getCorrectAnswer());
-            Collections.shuffle(options);
+
+            // If True / False question, have True always be option 1 and False be option 2
+            if (options.contains("True") && options.contains("False")) {
+                Collections.sort(options, Comparator.reverseOrder());
+            }
+            else {
+                // Shuffle questions if this method call is not a test.
+                if (!isTest) {
+                Collections.shuffle(options);
+                }
+            }
 
             // Print options
             for (int i = 0; i < options.size(); i++) {
@@ -63,6 +71,9 @@ public class GamePlayFunctions implements GamePlayFunctionsInterface {
 
         scanner.close();
         determineWinner();
+    }
+    public void startGame(QuestionList questionList, String name1, String name2) {
+        startGame(questionList, name1, name2, false);
     }
 
     /** Determines and displays the winner of the game. Also updates the results. */
