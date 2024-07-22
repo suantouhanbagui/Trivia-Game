@@ -8,18 +8,13 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static test.TestingHelperFunctions.callPrivateMethod;
-import static test.TestingHelperFunctions.setPrivateVariableHelper;
+import static test.TestingHelperFunctions.*;
 
 // NOTE: Need Mockito to properly test this, but I can't figure it out atm. I will come back to it later.
 // For now, here's a much less comprehensive set of tests.
@@ -29,6 +24,7 @@ class GamePlayFunctionsTest {
     private ByteArrayOutputStream outputStream;
     private PrintStream originalOut;
     private InputStream originalIn;
+    private PipedOutputStream stream;
 
     @BeforeEach
     void setUp() {
@@ -37,43 +33,81 @@ class GamePlayFunctionsTest {
         originalOut = System.out;
         System.setOut(new PrintStream(outputStream));
         originalIn = System.in;
+        stream = new PipedOutputStream();
     }
 
     @AfterEach
-    void tearDown() {
+    void tearDown() throws IOException {
         System.setOut(originalOut);
         System.setIn(originalIn);
+        stream.close();
     }
 
     @Test
-    void startGameTestCorrectAnswer() {
-        QuestionList questionList = new QuestionList(1, "Any Category", "Any Difficulty", "Multiple Choice");
-        ArrayList<String> wrongAnswers = new ArrayList<>(Arrays.asList("wrong", "wrong", "wrong"));
-        Question question1 = new Question("?", "correct", wrongAnswers, "Any Difficulty", "Any Category", "Multiple Choice");
+    void startGameTestCorrectAnswerTF(){
+        QuestionList questionList = new QuestionList(1, "Any Category", "Any Difficulty", "True / False");
+        ArrayList<String> wrongAnswers = new ArrayList<>(Arrays.asList("False"));
+        Question question1 = new Question("?", "True", wrongAnswers, "Any Difficulty", "Any Category", "True / False");
         questionList.addQuestion(question1);
-
-        gamePlayFunctions.startGame(questionList, "Alice", "Bob");
 
         String input = "1\n";
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
+
+        gamePlayFunctions.startGame(questionList, "Alice", "Bob");
 
         String output = outputStream.toString();
         assertTrue(output.contains("Correct! Your score: 1"));
     }
 
     @Test
-    void startGameTestWrongAnswer() {
-        String input = "4\n";
+    void startGameTestWrongAnswerTF(){
+        QuestionList questionList = new QuestionList(1, "Any Category", "Any Difficulty", "True / False");
+        ArrayList<String> wrongAnswers = new ArrayList<>(Arrays.asList("False"));
+        Question question1 = new Question("?", "True", wrongAnswers, "Any Difficulty", "Any Category", "True / False");
+        questionList.addQuestion(question1);
+
+        String input = "2\n";
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
 
+        gamePlayFunctions.startGame(questionList, "Alice", "Bob");
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("Wrong! The correct answer was: "));
+    }
+
+
+    @Test
+    void startGameTestCorrectAnswerMultiple() throws NoSuchFieldException, IllegalAccessException, InterruptedException {
         QuestionList questionList = new QuestionList(1, "Any Category", "Any Difficulty", "Multiple Choice");
         ArrayList<String> wrongAnswers = new ArrayList<>(Arrays.asList("wrong", "wrong", "wrong"));
         Question question1 = new Question("?", "correct", wrongAnswers, "Any Difficulty", "Any Category", "Multiple Choice");
         questionList.addQuestion(question1);
 
+        String input = "4\n";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
         gamePlayFunctions.startGame(questionList, "Alice", "Bob");
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("Correct! Your score: 1"));
+    }
+
+    @Test
+    void startGameTestWrongAnswerMultiple() throws InterruptedException, IOException {
+        QuestionList questionList = new QuestionList(1, "Any Category", "Any Difficulty", "Multiple Choice");
+        ArrayList<String> wrongAnswers = new ArrayList<>(Arrays.asList("wrong", "wrong", "wrong"));
+        Question question1 = new Question("?", "correct", wrongAnswers, "Any Difficulty", "Any Category", "Multiple Choice");
+        questionList.addQuestion(question1);
+
+        String input = "1\n";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        gamePlayFunctions.startGame(questionList, "Alice", "Bob");
+
         String output = outputStream.toString();
         assertTrue(output.contains("Wrong! The correct answer was: "));
     }
