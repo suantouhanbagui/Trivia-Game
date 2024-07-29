@@ -29,7 +29,7 @@ public class MainMenuUI extends JFrame implements ActionListener {
     private String lMode ="LightMode";
 
     //Creates a Play button
-    private JButton playButton = new JButton("Play");
+    private JButton backButton = new JButton("Back");
 
 
     public MainMenuUI() {
@@ -61,8 +61,8 @@ public class MainMenuUI extends JFrame implements ActionListener {
         add(dropdownPanel, BorderLayout.CENTER);
 
         //Allows to playButton to do the specified action and adds the playButton
-        playButton.addActionListener(this);
-        add(playButton, BorderLayout.SOUTH);
+        backButton.addActionListener(this);
+        add(backButton, BorderLayout.SOUTH);
 
         //allows the player to see the GUI
         setVisible(true);
