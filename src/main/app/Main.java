@@ -26,7 +26,13 @@ public class Main {
         record.record(game);
 
         // Look at past results
-        RetrieveResults retrieve = new RetrieveResults();
-        System.out.println(retrieve.retrieve());
+        // Exception handled by the UI currently, this is just for demo purposes
+        try {
+            RetrieveResults retrieve = new RetrieveResults();
+            System.out.println(retrieve.retrieve());
+        }
+        catch (Exception e){
+            e.printStackTrace(System.out);
+        }
     }
 }
