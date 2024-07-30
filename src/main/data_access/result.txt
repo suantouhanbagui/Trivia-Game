@@ -1,0 +1,3 @@
+Alice: 1; Bob: 0; Result: Bob wins!
+Alice: 0; Bob: 1; Result: Alice wins!
+Alice: 1; Bob: 1; Result: Tie
