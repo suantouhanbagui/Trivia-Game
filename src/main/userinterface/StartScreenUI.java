@@ -71,6 +71,10 @@ public class StartScreenUI extends JFrame implements ActionListener{
             SwingUtilities.invokeLater(MainMenuUI::new);
             dispose();
         }
+        else if (e.getSource() == resultsButton) {
+            SwingUtilities.invokeLater(ResultsUI::new);
+            dispose();
+        }
         else if (e.getSource() == exitButton) {
             System.exit(0);
         }
