@@ -60,7 +60,8 @@ public class StartScreenUI extends JFrame implements ActionListener{
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == startButton) {
-            // fill in with code that starts the game
+            SwingUtilities.invokeLater(QuizUI::new);
+            dispose();
         }
         else if (e.getSource() == settingsButton) {
             SwingUtilities.invokeLater(MainMenuUI::new);
