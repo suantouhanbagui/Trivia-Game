@@ -19,7 +19,6 @@ public class MainMenuUI extends JFrame implements ActionListener {
     private final JComboBox<String> lightMode = new JComboBox<String>(lModes);
 
     //Creates the labels for the introduction
-    private JLabel welcomeLabel = new JLabel("Welcome to Trivia Game!");
     private JLabel introLabel = new JLabel("Please select settings from the dropdowns:");
 
     //Creates variables to store the settings the player choose
@@ -41,8 +40,7 @@ public class MainMenuUI extends JFrame implements ActionListener {
 
         //Creates a panel to display the introduction text at the top of the GUI
         JPanel introPanel = new JPanel(new GridLayout(0, 1));
-        welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        introPanel.add(welcomeLabel);
+        introLabel.setFont(new Font("Serif", Font.PLAIN, 18));
         introLabel.setHorizontalAlignment(SwingConstants.CENTER);
         introPanel.add(introLabel);
 
