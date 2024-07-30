@@ -71,6 +71,7 @@ public class ResultsUI extends JFrame implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
+        SwingUtilities.invokeLater(StartScreenUI::new);
         this.dispose();
     }
 
