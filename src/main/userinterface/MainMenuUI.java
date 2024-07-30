@@ -19,7 +19,6 @@ public class MainMenuUI extends JFrame implements ActionListener {
     private final JComboBox<String> lightMode = new JComboBox<String>(lModes);
 
     //Creates the labels for the introduction
-    private JLabel welcomeLabel = new JLabel("Welcome to Trivia Game!");
     private JLabel introLabel = new JLabel("Please select settings from the dropdowns:");
 
     //Creates variables to store the settings the player choose
@@ -29,7 +28,7 @@ public class MainMenuUI extends JFrame implements ActionListener {
     private String lMode ="LightMode";
 
     //Creates a Play button
-    private JButton playButton = new JButton("Play");
+    private JButton backButton = new JButton("Back");
 
 
     public MainMenuUI() {
@@ -41,8 +40,7 @@ public class MainMenuUI extends JFrame implements ActionListener {
 
         //Creates a panel to display the introduction text at the top of the GUI
         JPanel introPanel = new JPanel(new GridLayout(0, 1));
-        welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        introPanel.add(welcomeLabel);
+        introLabel.setFont(new Font("Serif", Font.PLAIN, 18));
         introLabel.setHorizontalAlignment(SwingConstants.CENTER);
         introPanel.add(introLabel);
 
@@ -61,8 +59,8 @@ public class MainMenuUI extends JFrame implements ActionListener {
         add(dropdownPanel, BorderLayout.CENTER);
 
         //Allows to playButton to do the specified action and adds the playButton
-        playButton.addActionListener(this);
-        add(playButton, BorderLayout.SOUTH);
+        backButton.addActionListener(this);
+        add(backButton, BorderLayout.SOUTH);
 
         //allows the player to see the GUI
         setVisible(true);
@@ -78,7 +76,8 @@ public class MainMenuUI extends JFrame implements ActionListener {
         this.qMode = Objects.requireNonNull(questionMode.getSelectedItem()).toString();
         this.pMode = Objects.requireNonNull(playerMode.getSelectedItem()).toString();
         this.lMode = Objects.requireNonNull(lightMode.getSelectedItem()).toString();
-        System.exit(0);
+        SwingUtilities.invokeLater(StartScreenUI::new);
+        dispose();
     }
 
     /**
