@@ -76,7 +76,8 @@ public class MainMenuUI extends JFrame implements ActionListener {
         this.qMode = Objects.requireNonNull(questionMode.getSelectedItem()).toString();
         this.pMode = Objects.requireNonNull(playerMode.getSelectedItem()).toString();
         this.lMode = Objects.requireNonNull(lightMode.getSelectedItem()).toString();
-        System.exit(0);
+        SwingUtilities.invokeLater(StartScreenUI::new);
+        dispose();
     }
 
     /**
