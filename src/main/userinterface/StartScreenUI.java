@@ -9,9 +9,10 @@ public class StartScreenUI extends JFrame implements ActionListener{
     //creates a label for the title of the Game
     private JLabel titleLabel = new JLabel("Trivia Quiz");
 
-    //creates a start, settings, and exit button that are labeled respectively
+    //creates a start, settings, result, and exit button that are labeled respectively
     private JButton startButton = new JButton("Start");
     private JButton settingsButton = new JButton("Settings");
+    private JButton resultsButton = new JButton("Previous Results");
     private JButton exitButton = new JButton("Exit");
 
     public StartScreenUI() {
@@ -31,17 +32,20 @@ public class StartScreenUI extends JFrame implements ActionListener{
         add(titlePanel, BorderLayout.NORTH);
 
         //changes the font and adds an action listener to each button
-        startButton.setPreferredSize(new Dimension(400, 50));
+        startButton.setPreferredSize(new Dimension(400, 35));
         startButton.addActionListener(this);
-        settingsButton.setPreferredSize(new Dimension(400, 50));
+        settingsButton.setPreferredSize(new Dimension(400, 35));
         settingsButton.addActionListener(this);
-        exitButton.setPreferredSize(new Dimension(400, 50));
+        resultsButton.setPreferredSize(new Dimension(400, 35));
+        resultsButton.addActionListener(this);
+        exitButton.setPreferredSize(new Dimension(400, 35));
         exitButton.addActionListener(this);
 
         //creates a panel to store all the buttons
         JPanel optionsPanel = new JPanel(new GridLayout(0, 1));
         optionsPanel.add(startButton);
         optionsPanel.add(settingsButton);
+        optionsPanel.add(resultsButton);
         optionsPanel.add(exitButton);
 
         //adds the options panel
