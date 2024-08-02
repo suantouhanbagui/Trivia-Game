@@ -6,7 +6,7 @@ import main.entities.QuestionList;
  * This interface defines the methods required for game play functionality.
  * Implementations of this interface handle starting and managing the game process.
  */
-public interface GamePlayFunctionsInterface {
+public interface TwoPlayerGameModeInterface extends GameModeInterface {
     /**
      * Starts the game with the given players and question list.
      *

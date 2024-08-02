@@ -7,7 +7,7 @@ import main.entities.QuestionList;
 import java.util.*;
 
 /** Implements the interface for game play functions. */
-public class GamePlayFunctions implements GamePlayFunctionsInterface {
+public class TwoPlayerGameMode implements TwoPlayerGameModeInterface {
     private Player[] players;
     private int currentPlayerIndex = 0;
     private final StringBuilder results = new StringBuilder();

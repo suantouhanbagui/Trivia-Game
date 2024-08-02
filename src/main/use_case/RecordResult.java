@@ -24,7 +24,7 @@ public class RecordResult {
      *
      * @param game The game for which the results need to be recorded
      */
-    public void record(GamePlayFunctionsInterface game) {
+    public void record(GameModeInterface game) {
         try{
             resultRecorder.recordResult(game.getResults());
             resultRecorder.closeFile();
