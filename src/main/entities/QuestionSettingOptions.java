@@ -43,7 +43,7 @@ public class QuestionSettingOptions {
             category.add("Vehicles");
             category.add("Entertainment: Comics");
             category.add("Science: Gadgets");
-            category.add("Entertainment: Japanese Anmie & Mange");
+            category.add("Entertainment: Japanese Anime & Manga");
             category.add("Entertainment: Cartoon & Animations");
         }
         return category.toArray(new String[24]);
