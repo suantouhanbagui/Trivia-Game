@@ -25,7 +25,7 @@ public class RetrieveResults {
         ArrayList<String>
 
         resultList = resultsRetriever.retrieveResults();
-        resultsRetriever.closeResultFile();
+        resultsRetriever.closeFile();
         return resultList;
     }
 }
