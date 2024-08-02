@@ -178,7 +178,7 @@ public class TriviaDB implements TriviaDBInterface {
             String[] keys = QuestionSettingOptions.getCategoryOptions();
             categoryMap.put("Any Category", null);
             for (int i = 1; i < keys.length; i++) {
-                categoryMap.put(keys[i + 1], i + 8);
+                categoryMap.put(keys[i], i + 8);
             }
             // Put key-value pairs into difficultyMap.
             difficultyMap.put("Any Difficulty", null);
