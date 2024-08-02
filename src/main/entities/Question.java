@@ -12,7 +12,7 @@ public class Question extends AbstractQuestionLike{
     private final ArrayList<String> incorrectAnswers;
 
     /**
-     * Create a mew question with the given parameters.
+     * Create a new question with the given parameters.
      *
      * @param questionText Question body.
      * @param correctAnswer to the question.
