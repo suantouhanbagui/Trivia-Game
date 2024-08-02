@@ -14,6 +14,12 @@ public abstract class AbstractQuestionLike {
     /** Type of the questions. */
     private final String type;
 
+    /**
+     * Initialise a new AbstractQuestionLike object.
+     * @param category the category of the QuestionLike object.
+     * @param difficulty the difficulty of the QuestionLike object.
+     * @param type the question type associated with the QuestionLike object.
+     */
     public AbstractQuestionLike(String category, String difficulty, String type){
         this.category = category;
         this.type = type;
