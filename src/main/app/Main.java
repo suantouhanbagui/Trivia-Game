@@ -5,7 +5,6 @@ import main.data_access.TriviaDB;
 import main.data_access.TriviaDBInterface;
 import main.use_case.*;
 
-
 public class Main {
     public static void main(String[] args) {
         System.out.println("Welcome!");
@@ -17,9 +16,13 @@ public class Main {
         QuestionList questionList = triviaDB.getQuestions(settings.getAmount(), settings.getCategory(),
                 settings.getDifficulty(), settings.getType());
 
-        // Initialize the game
-        GamePlayFunctionsInterface game = new GamePlayFunctions();
-        game.startGame(questionList, "Alice", "Bob");
+        // Initialize the game (Two Player)
+//        TwoPlayerGameModeInterface game = new TwoPlayerGameMode();
+//        game.startGame(questionList, "Alice", "Bob");
+
+        // Initialize the game (Single Player)
+        SinglePlayerGameModeInterface game = new SinglePlayerGameMode();
+        game.startGame(questionList, "Alice");
 
         // After the game, record the results
         RecordResult record = new RecordResult();

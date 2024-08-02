@@ -3,7 +3,7 @@ package test.use_case;
 import main.entities.Player;
 import main.entities.Question;
 import main.entities.QuestionList;
-import main.use_case.GamePlayFunctions;
+import main.use_case.TwoPlayerGameMode;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,14 +21,14 @@ import static test.TestingHelperFunctions.setPrivateVariableHelper;
 // For now, here's a much less comprehensive set of tests.
 
 class GamePlayFunctionsTest {
-    private GamePlayFunctions gamePlayFunctions;
+    private TwoPlayerGameMode gamePlayFunctions;
     private ByteArrayOutputStream outputStream;
     private PrintStream originalOut;
     private InputStream originalIn;
 
     @BeforeEach
     void setUp() {
-        gamePlayFunctions = new GamePlayFunctions();
+        gamePlayFunctions = new TwoPlayerGameMode();
         outputStream = new ByteArrayOutputStream();
         originalOut = System.out;
         System.setOut(new PrintStream(outputStream));
