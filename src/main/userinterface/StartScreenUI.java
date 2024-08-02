@@ -16,7 +16,7 @@ public class StartScreenUI extends JFrame implements ActionListener{
     private JButton exitButton = new JButton("Exit");
 
     //create a variable that holds the font for all the buttons
-    Font buttonFont = new Font("Serif", Font.PLAIN, 40);
+    private Font buttonFont = new Font("Serif", Font.PLAIN, 40);
 
     public StartScreenUI() {
         // Sets the title at the top, the size, the layout, and how to close the GUI
