@@ -3,15 +3,9 @@ package main.entities;
 import java.util.ArrayList;
 
 /** Entity to represent a list of questions. */
-public class QuestionList {
+public class QuestionList extends AbstractQuestionLike {
     /** Amount of question in the list. */
     private final int amount; //default 10 questions
-    /** Category of the questions. */
-    private final String category;
-    /** Difficulty of the questions. */
-    private final String difficulty;
-    /** Type of the questions. */
-    private final String type;
     /** ArrayList of the questions stored in the list. */
     private final ArrayList<Question> questions;
     /** Index of the next question to be asked. */
@@ -26,10 +20,8 @@ public class QuestionList {
      * @param type of the questions.
      */
     public QuestionList(int amount, String category, String difficulty, String type) {
+        super(category, difficulty, type);
         this.amount = amount;
-        this.category = category;
-        this.difficulty = difficulty;
-        this.type = type;
         this.questions = new ArrayList<Question>(amount);
         this.currentQuestionIndex = 0;
     }
@@ -43,23 +35,6 @@ public class QuestionList {
         return questions;
     }
 
-    /**
-     * Retrieve the category of the questions stored in the list.
-     *
-     * @return the category of the questions.
-     */
-    public String getCategory() {
-        return category;
-    }
-
-    /**
-     * Retrieve the difficulty of the questions stored in the list.
-     *
-     * @return the difficulty of the questions.
-     */
-    public String getDifficulty() {
-        return difficulty;
-    }
 
     /**
      * Add the given question to the list.
@@ -69,6 +44,7 @@ public class QuestionList {
     public void addQuestion(Question question) {
         this.questions.add(question);
     }
+
 
     /**
      * Retrieve the next question to ask the players.
