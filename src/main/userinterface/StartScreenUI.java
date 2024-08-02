@@ -15,16 +15,19 @@ public class StartScreenUI extends JFrame implements ActionListener{
     private JButton resultsButton = new JButton("Previous Results");
     private JButton exitButton = new JButton("Exit");
 
+    //create a variable that holds the font for all the buttons
+    Font buttonFont = new Font("Serif", Font.PLAIN, 40);
+
     public StartScreenUI() {
         // Sets the title at the top, the size, the layout, and how to close the GUI
         setTitle("Trivia Quiz");
-        setSize(400, 300);
+        setSize(1000, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
         //creates a panel to store the title at the top of the UI and changes the text font
         JPanel titlePanel = new JPanel();
-        titleLabel.setFont(new Font("Serif", Font.PLAIN, 50));
+        titleLabel.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 150));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         titlePanel.add(titleLabel);
 
@@ -32,13 +35,17 @@ public class StartScreenUI extends JFrame implements ActionListener{
         add(titlePanel, BorderLayout.NORTH);
 
         //changes the font and adds an action listener to each button
-        startButton.setPreferredSize(new Dimension(400, 35));
+        startButton.setPreferredSize(new Dimension(1000, 75));
+        startButton.setFont(buttonFont);
         startButton.addActionListener(this);
-        settingsButton.setPreferredSize(new Dimension(400, 35));
+        settingsButton.setPreferredSize(new Dimension(1000, 75));
+        settingsButton.setFont(buttonFont);
         settingsButton.addActionListener(this);
-        resultsButton.setPreferredSize(new Dimension(400, 35));
+        resultsButton.setPreferredSize(new Dimension(1000, 75));
+        resultsButton.setFont(buttonFont);
         resultsButton.addActionListener(this);
-        exitButton.setPreferredSize(new Dimension(400, 35));
+        exitButton.setPreferredSize(new Dimension(1000, 75));
+        exitButton.setFont(buttonFont);
         exitButton.addActionListener(this);
 
         //creates a panel to store all the buttons
