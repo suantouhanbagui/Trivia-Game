@@ -73,11 +73,19 @@ public class MainMenuUI extends JFrame implements ActionListener {
      * @param e An instance of the ActionEvent class to use its methods/properties
      */
     public void actionPerformed(ActionEvent e) {
-        this.qMode = Objects.requireNonNull(questionMode.getSelectedItem()).toString();
-        this.pMode = Objects.requireNonNull(playerMode.getSelectedItem()).toString();
-        this.lMode = Objects.requireNonNull(lightMode.getSelectedItem()).toString();
-        SwingUtilities.invokeLater(StartScreenUI::new);
-        dispose();
+        if (e.getSource() == questionMode) {
+            this.qMode = Objects.requireNonNull(questionMode.getSelectedItem()).toString();
+        }
+        else if (e.getSource() == playerMode) {
+            this.pMode = Objects.requireNonNull(playerMode.getSelectedItem()).toString();
+        }
+        else if (e.getSource() == lightMode) {
+            this.lMode = Objects.requireNonNull(lightMode.getSelectedItem()).toString();
+        }
+        else if (e.getSource() == backButton) {
+            SwingUtilities.invokeLater(StartScreenUI::new);
+            dispose();
+        }
     }
 
     /**
