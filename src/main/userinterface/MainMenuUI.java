@@ -1,4 +1,6 @@
 package main.userinterface;
+import main.entities.QuestionSettingOptions;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,9 +16,11 @@ public class MainMenuUI extends JFrame implements ActionListener {
     private final String[] qModes = {"Multiple Choise", "True and False", "Mixed"};
     private final String[] pModes = {"Single Player", "Two Player"};
     private final String[] lModes = {"Light Mode", "Dark Mode"};
+    private final String[] categories = QuestionSettingOptions.getCategoryOptions();
     private final JComboBox<String> questionMode = new JComboBox<String>(qModes);
     private final JComboBox<String> playerMode = new JComboBox<String>(pModes);
     private final JComboBox<String> lightMode = new JComboBox<String>(lModes);
+    private final JComboBox<String> cDropdown = new JComboBox<>(categories);
 
     //Creates the labels for the introduction and to create empty space
     private JLabel introLabel = new JLabel("Please select settings from the dropdowns:");
@@ -28,12 +32,13 @@ public class MainMenuUI extends JFrame implements ActionListener {
     private String qMode ="Multiple Choise";
     private String pMode ="Single Player";
     private String lMode ="LightMode";
+    private String category = "Any Category";
 
     //Creates a Play button
     private JButton backButton = new JButton("Back");
 
     //Creates a font for the dropdowns
-    Font ddFont = new Font("Serif", Font.PLAIN, 40);
+    private Font ddFont = new Font("Serif", Font.PLAIN, 40);
 
     public MainMenuUI() {
         // Sets the title at the top, the size, the layout, and how to close the GUI
@@ -60,10 +65,13 @@ public class MainMenuUI extends JFrame implements ActionListener {
         playerMode.setFont(ddFont);
         lightMode.addActionListener(this);
         lightMode.setFont(ddFont);
+        cDropdown.addActionListener(this);
+        cDropdown.setFont(ddFont);
 
         //Creates a panel to display all the dropdowns
         JPanel dropdownPanel = new JPanel(new GridLayout(0, 1));
         dropdownPanel.setLayout(new BoxLayout(dropdownPanel, BoxLayout.Y_AXIS));
+        dropdownPanel.add(cDropdown);
         dropdownPanel.add(questionMode);
         dropdownPanel.add(playerMode);
         dropdownPanel.add(lightMode);
@@ -98,6 +106,9 @@ public class MainMenuUI extends JFrame implements ActionListener {
         }
         else if (e.getSource() == lightMode) {
             this.lMode = Objects.requireNonNull(lightMode.getSelectedItem()).toString();
+        }
+        else if (e.getSource() == cDropdown) {
+            this.category = Objects.requireNonNull(cDropdown.getSelectedItem()).toString();
         }
         else if (e.getSource() == backButton) {
             SwingUtilities.invokeLater(StartScreenUI::new);

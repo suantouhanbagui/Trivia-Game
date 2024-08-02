@@ -16,13 +16,17 @@ public class QuizUI extends JFrame {
     private QuestionList questionList;
     private Question currentQuestion;
 
+    //created a Font for the buttons
+    private Font buttonFont = new Font("Serif", Font.PLAIN, 50);
+
     public QuizUI() {
         setTitle("Trivia Quiz");
-        setSize(400, 300);
+        setSize(1000, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
         questionLabel = new JLabel("Question will be here", SwingConstants.CENTER);
+        questionLabel.setFont(new Font("Serif", Font.BOLD, 20));
         add(questionLabel, BorderLayout.NORTH);
 
         JPanel answerPanel = new JPanel();
