@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import main.data_access.TriviaDB;
 import main.entities.QuestionList;
 import main.entities.Question;
+import main.entities.Settings;
 
 public class QuizUI extends JFrame {
     private final JLabel questionLabel;
@@ -22,9 +23,11 @@ public class QuizUI extends JFrame {
     //created empty Labels for empty space in the UI
     private JLabel eLabel = new JLabel(" ");
     private JLabel eLabelTwo = new JLabel(" ");
+    private Settings settings;
 
 
-    public QuizUI() {
+    public QuizUI(Settings settings) {
+        this.settings = settings;
         setTitle("Trivia Quiz");
         setSize(1000, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -76,10 +79,8 @@ public class QuizUI extends JFrame {
                 }
             }
         } else {
-            questionLabel.setText("No more questions!");
-            for (JButton button : answerButtons) {
-                button.setVisible(false);
-            }
+            SwingUtilities.invokeLater(() -> new ResultsUI(new Settings()));
+            this.dispose();
         }
     }
 
@@ -102,6 +103,6 @@ public class QuizUI extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(QuizUI::new);
+        SwingUtilities.invokeLater(() -> new QuizUI(new Settings()));
     }
 }

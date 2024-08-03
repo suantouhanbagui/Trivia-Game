@@ -1,5 +1,6 @@
 package main.userinterface;
 import main.entities.QuestionSettingOptions;
+import main.entities.Settings;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,8 +12,10 @@ import java.util.Objects;
  * This class creates the main menu GUI that the player will be greeted with when first opening the game.
  * Tncludes dropdown menus for types of questions, single-player or two-player mode, and other various settings
  */
-public class MainMenuUI extends JFrame implements ActionListener {
+public class SettingsUI extends JFrame implements ActionListener {
     //creates private dropdown menus for each setting
+    private Settings settings;
+    private Settings nochangesettings;
     private final String[] qModes = {"Multiple Choise", "True and False", "Mixed"};
     private final String[] pModes = {"Single Player", "Two Player"};
     private final String[] lModes = {"Light Mode", "Dark Mode"};
@@ -29,19 +32,22 @@ public class MainMenuUI extends JFrame implements ActionListener {
 
     //Creates variables to store the settings the player choose
     //These are initially set to the default choice.
-    private String qMode ="Multiple Choise";
-    private String pMode ="Single Player";
-    private String lMode ="LightMode";
-    private String category = "Any Category";
+//    private String qMode ="Multiple Choise";
+//    private String pMode ="Single Player";
+//    private String lMode ="LightMode";
+//    private String category = "Any Category";
 
     //Creates a Play button
     private JButton backButton = new JButton("Back");
+    private JButton confirmButton = new JButton("Confirm");
 
     //Creates a font for the dropdowns
     private Font ddFont = new Font("Serif", Font.PLAIN, 40);
 
-    public MainMenuUI() {
+    public SettingsUI(Settings settings) {
         // Sets the title at the top, the size, the layout, and how to close the GUI
+        this.settings = settings;
+        this.nochangesettings = settings;
         setTitle("Trivia Quiz");
         setSize(1000, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -75,21 +81,31 @@ public class MainMenuUI extends JFrame implements ActionListener {
         dropdownPanel.add(questionMode);
         dropdownPanel.add(playerMode);
         dropdownPanel.add(lightMode);
+        cDropdown.setSelectedItem(this.settings.getCategory());
+        questionMode.setSelectedItem(this.settings.getType());
+        playerMode.setSelectedItem(this.settings.getGameMode());
+        lightMode.setSelectedItem(this.settings.isDarkModeEnabled() ? lModes[1]:lModes[0]);
 
         //Adds the dropdown panel
         add(dropdownPanel, BorderLayout.CENTER);
-
         //Allows to playButton to do the specified action and changes the size and font of button
         backButton.addActionListener(this);
         backButton.setPreferredSize(new Dimension(1000, 50));
         backButton.setFont(new Font("Serif", Font.BOLD, 25));
 
         //Adds the back button
-        add(backButton, BorderLayout.SOUTH);
+        confirmButton.addActionListener(this);
+        confirmButton.setPreferredSize(new Dimension(1000, 50));
+        confirmButton.setFont(new Font("Serif", Font.BOLD, 25));
+
+        //Adds the back button
 
         //allows the player to see the GUI
+        JPanel submitPanel = new JPanel(new GridLayout(0, 1));
+        submitPanel.add(confirmButton);
+        submitPanel.add(backButton);
+        add(submitPanel, BorderLayout.SOUTH);
         setVisible(true);
-
     }
 
     /**
@@ -99,19 +115,23 @@ public class MainMenuUI extends JFrame implements ActionListener {
      */
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == questionMode) {
-            this.qMode = Objects.requireNonNull(questionMode.getSelectedItem()).toString();
+            this.settings.setqType(Objects.requireNonNull(questionMode.getSelectedItem()).toString());
         }
         else if (e.getSource() == playerMode) {
-            this.pMode = Objects.requireNonNull(playerMode.getSelectedItem()).toString();
+            this.settings.setGameMode(Objects.requireNonNull(playerMode.getSelectedItem()).toString());
         }
         else if (e.getSource() == lightMode) {
-            this.lMode = Objects.requireNonNull(lightMode.getSelectedItem()).toString();
+            this.settings.setDarkModeEnabled(Objects.requireNonNull(lightMode.getSelectedItem()).toString().contains("Dark"));
         }
         else if (e.getSource() == cDropdown) {
-            this.category = Objects.requireNonNull(cDropdown.getSelectedItem()).toString();
+            this.settings.setqCategory(Objects.requireNonNull(cDropdown.getSelectedItem()).toString());
         }
         else if (e.getSource() == backButton) {
-            SwingUtilities.invokeLater(StartScreenUI::new);
+            SwingUtilities.invokeLater(() -> new StartScreenUI(this.nochangesettings));
+            dispose();
+        }
+        else if (e.getSource() == confirmButton) {
+            SwingUtilities.invokeLater(() -> new StartScreenUI(this.settings));
             dispose();
         }
     }
@@ -120,6 +140,6 @@ public class MainMenuUI extends JFrame implements ActionListener {
      * Displays a new Main Menu UI
      */
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(MainMenuUI::new);
+        SwingUtilities.invokeLater(() -> new SettingsUI(new Settings()));
     }
 }

@@ -1,12 +1,12 @@
 package main.entities;
 
 public class Settings {
-    private final boolean darkModeEnabled;
-    private final String gameMode;
-    private final int qAmount;
-    private final String qCategory;
-    private final String qDifficulty;
-    private final String qType;
+    private boolean darkModeEnabled;
+    private String gameMode;
+    private int qAmount;
+    private String qCategory;
+    private String qDifficulty;
+    private String qType;
 
     public Settings() {
         darkModeEnabled = false;
@@ -49,5 +49,29 @@ public class Settings {
 
     public String getType() {
         return qType;
+    }
+
+    public void setDarkModeEnabled(boolean darkModeEnabled) {
+        this.darkModeEnabled = darkModeEnabled;
+    }
+
+    public void setGameMode(String gameMode) {
+        this.gameMode = gameMode;
+    }
+
+    public void setqAmount(int qAmount) {
+        this.qAmount = qAmount;
+    }
+
+    public void setqCategory(String qCategory) {
+        this.qCategory = qCategory;
+    }
+
+    public void setqDifficulty(String qDifficulty) {
+        this.qDifficulty = qDifficulty;
+    }
+
+    public void setqType(String qType) {
+        this.qType = qType;
     }
 }

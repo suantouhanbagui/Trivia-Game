@@ -1,9 +1,12 @@
 package main.userinterface;
 
+import main.entities.Settings;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 
 public class StartScreenUI extends JFrame implements ActionListener{
     //creates a label for the title of the Game
@@ -18,7 +21,10 @@ public class StartScreenUI extends JFrame implements ActionListener{
     //create a variable that holds the font for all the buttons
     private Font buttonFont = new Font("Serif", Font.PLAIN, 40);
 
-    public StartScreenUI() {
+    private Settings settings;
+
+    public StartScreenUI(Settings settings) {
+        this.settings = settings;
         // Sets the title at the top, the size, the layout, and how to close the GUI
         setTitle("Trivia Quiz");
         setSize(1000, 800);
@@ -71,15 +77,15 @@ public class StartScreenUI extends JFrame implements ActionListener{
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == startButton) {
-            SwingUtilities.invokeLater(QuizUI::new);
+            SwingUtilities.invokeLater(() -> new QuizUI(this.settings));
             dispose();
         }
         else if (e.getSource() == settingsButton) {
-            SwingUtilities.invokeLater(MainMenuUI::new);
+            SwingUtilities.invokeLater(() -> new SettingsUI(this.settings));
             dispose();
         }
         else if (e.getSource() == resultsButton) {
-            SwingUtilities.invokeLater(ResultsUI::new);
+            SwingUtilities.invokeLater(() -> new ResultsUI(this.settings));
             dispose();
         }
         else if (e.getSource() == exitButton) {
@@ -91,6 +97,6 @@ public class StartScreenUI extends JFrame implements ActionListener{
      * Displays a new Start Screen UI
      */
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(StartScreenUI::new);
+        SwingUtilities.invokeLater(() -> new StartScreenUI(new Settings()));
     }
 }

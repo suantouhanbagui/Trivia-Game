@@ -1,6 +1,7 @@
 package main.userinterface;
 
 // import com.formdev.flatlaf.FlatDarculaLaf;
+import main.entities.Settings;
 import main.use_case.RetrieveResults;
 import javax.swing.*;
 import java.awt.*;
@@ -12,15 +13,16 @@ import java.util.ArrayList;
 
 public class ResultsUI extends JFrame implements ActionListener {
 
+    private Settings settings;
     /**
      * Initialise a new ResultsUI and makes it visible to the user.
      */
-    public ResultsUI(){
+    public ResultsUI(Settings settings){
         // just to make it dark mode for demo purposes
         // later I think there should be a button(? or sth) on the main menu or something to toggle dark/light
         // FlatDarculaLaf.setup();
         // FlatDarculaLaf.updateUI();
-
+        this.settings = settings;
         // formatting the frame
         setLayout(new BorderLayout());
         setSize(1000, 800);
@@ -71,7 +73,7 @@ public class ResultsUI extends JFrame implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        SwingUtilities.invokeLater(StartScreenUI::new);
+        SwingUtilities.invokeLater(() -> new StartScreenUI(new Settings()));
         this.dispose();
     }
 
@@ -79,6 +81,6 @@ public class ResultsUI extends JFrame implements ActionListener {
      * Displays a new Results UI
      */
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(ResultsUI::new);
+        SwingUtilities.invokeLater(() -> new ResultsUI(new Settings()));
     }
 }
