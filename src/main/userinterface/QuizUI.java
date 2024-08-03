@@ -28,7 +28,6 @@ public class QuizUI extends JFrame {
     private int playernumber;
     private int currentplayer;
     private List<Player> players;
-//    private JLabel statusLabel;
     private JLabel leftStatusLabel;
     private JLabel rightStatusLabel;
 
