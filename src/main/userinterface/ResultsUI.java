@@ -23,7 +23,7 @@ public class ResultsUI extends JFrame implements ActionListener {
 
         // formatting the frame
         setLayout(new BorderLayout());
-        setSize(400, 300);
+        setSize(1000, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Trivia Quiz");
 

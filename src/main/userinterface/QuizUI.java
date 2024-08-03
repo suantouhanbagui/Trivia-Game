@@ -16,14 +16,29 @@ public class QuizUI extends JFrame {
     private QuestionList questionList;
     private Question currentQuestion;
 
+    //created a Font for the buttons
+    private Font buttonFont = new Font("Serif", Font.PLAIN, 25);
+
+    //created empty Labels for empty space in the UI
+    private JLabel eLabel = new JLabel(" ");
+    private JLabel eLabelTwo = new JLabel(" ");
+
+
     public QuizUI() {
         setTitle("Trivia Quiz");
-        setSize(400, 300);
+        setSize(1000, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
+        JPanel questionPanel = new JPanel(new GridLayout(0, 1));
         questionLabel = new JLabel("Question will be here", SwingConstants.CENTER);
-        add(questionLabel, BorderLayout.NORTH);
+        questionLabel.setFont(new Font("Serif", Font.BOLD, 20));
+        questionPanel.add(eLabel);
+        questionPanel.add(questionLabel, BorderLayout.CENTER);
+        questionPanel.add(eLabelTwo);
+
+        //add the question panel
+        add(questionPanel, BorderLayout.NORTH);
 
         JPanel answerPanel = new JPanel();
         answerPanel.setLayout(new GridLayout(2, 2));
@@ -31,6 +46,7 @@ public class QuizUI extends JFrame {
         for (int i = 0; i < 4; i++) {
             JButton button = new JButton("Answer " + (i + 1));
             button.addActionListener(new AnswerButtonListener());
+            button.setFont(buttonFont);
             answerButtons.add(button);
             answerPanel.add(button);
         }
