@@ -1,6 +1,9 @@
 package main.entities;
 
 public class Settings {
+    public static final String[] qModes = {"Multiple Choise", "True and False", "Mixed"};
+    public static final String[] pModes = {"Single Player", "Two Player"};
+    public static final String[] lModes = {"Light Mode", "Dark Mode"};
     private boolean darkModeEnabled;
     private String gameMode;
     private int qAmount;
