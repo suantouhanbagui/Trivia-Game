@@ -16,13 +16,11 @@ public class SettingsUI extends JFrame implements ActionListener {
     //creates private dropdown menus for each setting
     private Settings settings;
     private Settings nochangesettings;
-    private final String[] qModes = {"Multiple Choise", "True and False", "Mixed"};
-    private final String[] pModes = {"Single Player", "Two Player"};
-    private final String[] lModes = {"Light Mode", "Dark Mode"};
+
     private final String[] categories = QuestionSettingOptions.getCategoryOptions();
-    private final JComboBox<String> questionMode = new JComboBox<String>(qModes);
-    private final JComboBox<String> playerMode = new JComboBox<String>(pModes);
-    private final JComboBox<String> lightMode = new JComboBox<String>(lModes);
+    private final JComboBox<String> questionMode = new JComboBox<String>(Settings.qModes);
+    private final JComboBox<String> playerMode = new JComboBox<String>(Settings.pModes);
+    private final JComboBox<String> lightMode = new JComboBox<String>(Settings.lModes);
     private final JComboBox<String> cDropdown = new JComboBox<>(categories);
 
     //Creates the labels for the introduction and to create empty space
@@ -84,7 +82,7 @@ public class SettingsUI extends JFrame implements ActionListener {
         cDropdown.setSelectedItem(this.settings.getCategory());
         questionMode.setSelectedItem(this.settings.getType());
         playerMode.setSelectedItem(this.settings.getGameMode());
-        lightMode.setSelectedItem(this.settings.isDarkModeEnabled() ? lModes[1]:lModes[0]);
+        lightMode.setSelectedItem(this.settings.isDarkModeEnabled() ? Settings.lModes[1]:Settings.lModes[0]);
 
         //Adds the dropdown panel
         add(dropdownPanel, BorderLayout.CENTER);

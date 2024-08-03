@@ -43,6 +43,9 @@ public class Player implements Comparable<Player>{
     public void setScore(int score) {
         this.score = score;
     }
+    public void addScore(){
+        this.score += 1;
+    }
 
     /**
      * Return a string representation of the player.
