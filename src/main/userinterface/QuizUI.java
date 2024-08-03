@@ -28,7 +28,6 @@ public class QuizUI extends JFrame {
     private int playernumber;
     private int currentplayer;
     private List<Player> players;
-//    private JLabel statusLabel;
     private JLabel leftStatusLabel;
     private JLabel rightStatusLabel;
 
@@ -74,8 +73,6 @@ public class QuizUI extends JFrame {
         statusPanel.add(rightStatusLabel, BorderLayout.EAST);
 
         add(statusPanel, BorderLayout.SOUTH);
-//        statusLabel = new JLabel(getStatus());
-//        add(statusLabel,BorderLayout.SOUTH);
 
         loadQuestions();
         loadNextQuestion();
@@ -113,13 +110,7 @@ public class QuizUI extends JFrame {
     private void loadQuestions() {
         questionList = new TriviaDB().getQuestions(this.settings.getAmount() * this.playernumber, this.settings.getCategory(), "Easy", "Multiple Choice");
     }
-//    private String getStatus(){
-//        StringBuffer sb = new StringBuffer();
-//        for (Player player : players) {
-//            sb.append(player.getName()).append(": ").append(player.getScore()).append("  ");
-//        }
-//        return sb.toString();
-//    }
+
     private String getPlayerStatus(int playerIndex) {
         if (playerIndex < players.size()) {
             Player player = players.get(playerIndex);
@@ -127,11 +118,6 @@ public class QuizUI extends JFrame {
         }
         return "";
     }
-
-//    private void updateStatusLabels() {
-//        leftStatusLabel.setText(getPlayerStatus(0));
-//        rightStatusLabel.setText(getPlayerStatus(1));
-//    }
 
     private class AnswerButtonListener implements ActionListener {
         @Override
