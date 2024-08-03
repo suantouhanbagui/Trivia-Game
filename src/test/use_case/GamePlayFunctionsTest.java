@@ -3,18 +3,14 @@ package test.use_case;
 import main.entities.Player;
 import main.entities.Question;
 import main.entities.QuestionList;
-import main.use_case.GamePlayFunctions;
+import main.use_case.TwoPlayerGameMode;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -25,14 +21,14 @@ import static test.TestingHelperFunctions.setPrivateVariableHelper;
 // For now, here's a much less comprehensive set of tests.
 
 class GamePlayFunctionsTest {
-    private GamePlayFunctions gamePlayFunctions;
+    private TwoPlayerGameMode gamePlayFunctions;
     private ByteArrayOutputStream outputStream;
     private PrintStream originalOut;
     private InputStream originalIn;
 
     @BeforeEach
     void setUp() {
-        gamePlayFunctions = new GamePlayFunctions();
+        gamePlayFunctions = new TwoPlayerGameMode();
         outputStream = new ByteArrayOutputStream();
         originalOut = System.out;
         System.setOut(new PrintStream(outputStream));
@@ -45,24 +41,42 @@ class GamePlayFunctionsTest {
         System.setIn(originalIn);
     }
 
-//    @Test
-//    void startGameTestCorrectAnswer() {
-//        QuestionList questionList = new QuestionList(1, "Any Category", "Any Difficulty", "Multiple Choice");
-//        ArrayList<String> wrongAnswers = new ArrayList<>(Arrays.asList("wrong", "wrong", "wrong"));
-//        Question question1 = new Question("?", "correct", wrongAnswers, "Any Difficulty", "Any Category", "Multiple Choice");
-//        questionList.addQuestion(question1);
-//
-//        String input = "1\n";
-//        InputStream in = new ByteArrayInputStream(input.getBytes());
-//        System.setIn(in);
-//        gamePlayFunctions.startGame(questionList, "Alice", "Bob");
-//
-//        String output = outputStream.toString();
-//        assertTrue(output.contains("Correct! Your score: 1"));
-//    }
+    @Test
+    void startGameTestCorrectAnswerTF(){
+        QuestionList questionList = new QuestionList(1, "Any Category", "Any Difficulty", "True / False");
+        ArrayList<String> wrongAnswers = new ArrayList<>(Arrays.asList("False"));
+        Question question1 = new Question("?", "True", wrongAnswers, "Any Difficulty", "Any Category", "True / False");
+        questionList.addQuestion(question1);
+
+        String input = "1\n";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        gamePlayFunctions.startGame(questionList, "Alice", "Bob");
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("Correct! Your score: 1"));
+    }
 
     @Test
-    void startGameTestWrongAnswer() {
+    void startGameTestWrongAnswerTF(){
+        QuestionList questionList = new QuestionList(1, "Any Category", "Any Difficulty", "True / False");
+        ArrayList<String> wrongAnswers = new ArrayList<>(Arrays.asList("False"));
+        Question question1 = new Question("?", "True", wrongAnswers, "Any Difficulty", "Any Category", "True / False");
+        questionList.addQuestion(question1);
+
+        String input = "2\n";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        gamePlayFunctions.startGame(questionList, "Alice", "Bob");
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("Wrong! The correct answer was: "));
+    }
+
+    @Test
+    void startGameTestCorrectAnswerMultiple() {
         String input = "4\n";
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
@@ -72,7 +86,24 @@ class GamePlayFunctionsTest {
         Question question1 = new Question("?", "correct", wrongAnswers, "Any Difficulty", "Any Category", "Multiple Choice");
         questionList.addQuestion(question1);
 
-        gamePlayFunctions.startGame(questionList, "Alice", "Bob");
+        gamePlayFunctions.startGame(questionList, "Alice", "Bob", Boolean.TRUE);
+        String output = outputStream.toString();
+
+        assertTrue(output.contains("Correct! Your score: 1"));
+    }
+
+    @Test
+    void startGameTestWrongAnswerMultiple() {
+        String input = "1\n";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        QuestionList questionList = new QuestionList(1, "Any Category", "Any Difficulty", "Multiple Choice");
+        ArrayList<String> wrongAnswers = new ArrayList<>(Arrays.asList("wrong", "wrong", "wrong"));
+        Question question1 = new Question("?", "correct", wrongAnswers, "Any Difficulty", "Any Category", "Multiple Choice");
+        questionList.addQuestion(question1);
+
+        gamePlayFunctions.startGame(questionList, "Alice", "Bob", Boolean.TRUE);
         String output = outputStream.toString();
         assertTrue(output.contains("Wrong! The correct answer was: "));
     }

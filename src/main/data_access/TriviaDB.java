@@ -1,5 +1,6 @@
 package main.data_access;
 
+import main.entities.QuestionSettingOptions;
 import main.entities.Question;
 import main.entities.QuestionList;
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -53,21 +54,12 @@ public class TriviaDB implements TriviaDBInterface {
      *        50 inclusive. If the amount exceeds the number of questions that
      *        exist in the database with the given settings, an exception will
      *        be thrown.
-     * @param category the category of the generated questions. Must be one of
-     *        the following: "General Knowledge", "Entertainment: Books",
-     *        "Entertainment: "Film", "Entertainment: Music",
-     *        "Entertainment: Musicals & Theatres",
-     *        "Entertainment: Television", "Entertainment: Video Games",
-     *        "Entertainment: Board Games", "Science & Nature",
-     *        "Science: Computers", "Science: Mathematics", "Mythology",
-     *        "Sports", "Geography", "History", "Politics", "Art",
-     *        "Celebrities", "Animals", "Vehicles", "Entertainment: Comics",
-     *        "Science: Gadgets", "Entertainment: Japanese Anime & Manga",
-     *        "Entertainment: Cartoon & Animations".
-     * @param difficulty the difficulty of the generated questions. Must be one
-     *        of the following: "Any Difficulty", "Easy", "Medium", "Hard".
-     * @param type the type of the generated questions. Must be one of the
-     *        following: "Any Type", "Multiple Choice", "True / False".
+     * @param category the category of the generated questions. Must be a
+     *        String from QuestionSettingOptions.getCategoryOptions().
+     * @param difficulty the difficulty of the generated questions. Must be a
+     *        String from QuestionSettingOptions.getDifficultyOptions().
+     * @param type the type of the generated questions. Must be a String from
+     *        QuestionSettingOptions.getTypeOptions().
      * @return A QuestionList with the given settings.
      */
     @Override
@@ -182,9 +174,21 @@ public class TriviaDB implements TriviaDBInterface {
 
         /** Instantiates a converter by setting up categoryMap, difficultyMap and typeMap. */
         public APIParameterConverter() {
-            makeCategoryMap();
-            makeDifficultyMap();
-            makeTypeMap();
+            // Put key-value pairs into categoryMap.
+            String[] keys = QuestionSettingOptions.getCategoryOptions();
+            categoryMap.put("Any Category", null);
+            for (int i = 1; i < keys.length; i++) {
+                categoryMap.put(keys[i], i + 8);
+            }
+            // Put key-value pairs into difficultyMap.
+            difficultyMap.put("Any Difficulty", null);
+            difficultyMap.put("Easy", "easy");
+            difficultyMap.put("Medium", "medium");
+            difficultyMap.put("Hard", "hard");
+            // Put key-value pairs into typeMap.
+            typeMap.put("Any Type", null);
+            typeMap.put("Multiple Choice", "multiple");
+            typeMap.put("True / False", "boolean");
         }
 
         /**
@@ -236,65 +240,6 @@ public class TriviaDB implements TriviaDBInterface {
             } else {
                 throw new IllegalArgumentException("Type option \"" + type + "\" not recognized.");
             }
-        }
-
-        /**
-         * Put the key value pairs into categoryMap. Each key is a valid option
-         * for the category parameter in TriviaDB.getQuestions, while the
-         * associated value is the parameter used in the API call that
-         * generates the questions.
-         */
-        private void makeCategoryMap() {
-            categoryMap.put("Any Category", null);
-            categoryMap.put("General Knowledge", 9);
-            categoryMap.put("Entertainment: Books", 10);
-            categoryMap.put("Entertainment: Film", 11);
-            categoryMap.put("Entertainment: Music", 12);
-            categoryMap.put("Entertainment: Musicals & Theatres", 13);
-            categoryMap.put("Entertainment: Television", 14);
-            categoryMap.put("Entertainment: Video Games", 15);
-            categoryMap.put("Entertainment: Board Games", 16);
-            categoryMap.put("Science & Nature", 17);
-            categoryMap.put("Science: Computers", 18);
-            categoryMap.put("Science: Mathematics", 19);
-            categoryMap.put("Mythology", 20);
-            categoryMap.put("Sports", 21);
-            categoryMap.put("Geography", 22);
-            categoryMap.put("History", 23);
-            categoryMap.put("Politics", 24);
-            categoryMap.put("Art", 25);
-            categoryMap.put("Celebrities", 26);
-            categoryMap.put("Animals", 27);
-            categoryMap.put("Vehicles", 28);
-            categoryMap.put("Entertainment: Comics", 29);
-            categoryMap.put("Science: Gadgets", 30);
-            categoryMap.put("Entertainment: Japanese Anime & Manga", 31);
-            categoryMap.put("Entertainment: Cartoon & Animations", 32);
-        }
-
-        /**
-         * Put the key value pairs into difficultyMap. Each key is a valid
-         * option for the difficulty parameter in TriviaDB.getQuestions, while
-         * the associated value is the parameter used in the API call that
-         * generates the questions.
-         */
-        private void makeDifficultyMap() {
-            difficultyMap.put("Any Difficulty", null);
-            difficultyMap.put("Easy", "easy");
-            difficultyMap.put("Medium", "medium");
-            difficultyMap.put("Hard", "hard");
-        }
-
-        /**
-         * Put the key value pairs into typeMap. Each key is a valid option for
-         * the type parameter in TriviaDB.getQuestions, while the associated
-         * value is the parameter used in the API call that generates the
-         * questions.
-         */
-        private void makeTypeMap() {
-            typeMap.put("Any Type", null);
-            typeMap.put("Multiple Choice", "multiple");
-            typeMap.put("True / False", "boolean");
         }
     }
 }

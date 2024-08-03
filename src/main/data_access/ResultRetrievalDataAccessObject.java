@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 /** A data access object for retrieving the results of previous games. */
-public class ResultRetrievalDataAccessObject {
+public class ResultRetrievalDataAccessObject implements ResultFileAccessInterface{
     /** Reads from the result file. */
     private final BufferedReader resultsFileReader;
 
@@ -16,9 +16,20 @@ public class ResultRetrievalDataAccessObject {
      *         reader fails.
      */
     public ResultRetrievalDataAccessObject() throws IOException {
+        resultsFileReader = createFileAccessor();
+    }
+
+    /**
+     * Implementation of createFileAccessor from ResultFileAccessInterface.
+     * Creates a BufferedReader using the result record file.
+     * @return a BufferedReader that reads from the result record file.
+     * @throws IOException when an I/O error occurs while creating the object.
+     */
+    @Override
+    public BufferedReader createFileAccessor() throws IOException {
         File resultFile = new File("src\\main\\data_access\\result.txt");
         FileReader fileReader = new FileReader(resultFile);
-        resultsFileReader = new BufferedReader(fileReader);
+        return new BufferedReader(fileReader);
     }
 
     /**
@@ -43,7 +54,7 @@ public class ResultRetrievalDataAccessObject {
      *
      * @throws IOException if an I/O exception occurs.
      */
-    public void closeResultFile() throws IOException{
+    public void closeFile() throws IOException{
         resultsFileReader.close();
     }
 }
