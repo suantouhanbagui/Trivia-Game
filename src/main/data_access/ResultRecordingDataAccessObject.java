@@ -25,7 +25,7 @@ public class ResultRecordingDataAccessObject implements  ResultFileAccessInterfa
      */
     @Override
     public BufferedWriter createFileAccessor() throws IOException {
-        File resultFile = new File("src\\main\\data_access\\result.txt");
+        File resultFile = new File("src\\main\\main2.data_access\\result.txt");
         FileWriter fileWriter = new FileWriter(resultFile,true);
         return new BufferedWriter(fileWriter);
     }

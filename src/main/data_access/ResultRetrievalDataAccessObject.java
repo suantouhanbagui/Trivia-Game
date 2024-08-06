@@ -27,7 +27,7 @@ public class ResultRetrievalDataAccessObject implements ResultFileAccessInterfac
      */
     @Override
     public BufferedReader createFileAccessor() throws IOException {
-        File resultFile = new File("src\\main\\data_access\\result.txt");
+        File resultFile = new File("src\\main\\main2.data_access\\result.txt");
         FileReader fileReader = new FileReader(resultFile);
         return new BufferedReader(fileReader);
     }
