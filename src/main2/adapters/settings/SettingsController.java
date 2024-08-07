@@ -14,10 +14,9 @@ public class SettingsController {
         settingsInputBoundary.prepareView();
     }
 
-    public void execute(boolean darkModeEnabled, String gamemode, String amount,
-                        String category, String difficulty, String type) {
-        SettingsInputData settingsInputData = new SettingsInputData(darkModeEnabled, gamemode,
-                amount, category, difficulty, type);
+    public void execute(String amount, String category, String difficulty,
+                        String type, String gamemode) {
+        SettingsInputData settingsInputData = new SettingsInputData(amount, category, difficulty, type, gamemode);
         settingsInputBoundary.execute(settingsInputData);
     }
 }

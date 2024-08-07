@@ -1,29 +1,19 @@
 package main2.use_case.settings;
 
 public class SettingsInputData {
-    private boolean darkModeEnabled;
-    private final String gamemode;
     private final String amount;
     private final String category;
     private final String difficulty;
     private final String type;
+    private final String gamemode;
 
-    public SettingsInputData(boolean darkModeEnabled, String gamemode, String amount,
-                             String category, String difficulty, String type) {
-        this.darkModeEnabled = darkModeEnabled;
-        this.gamemode = gamemode;
+    public SettingsInputData(String amount, String category, String difficulty,
+                             String type, String gamemode) {
         this.amount = amount;
         this.category = category;
         this.difficulty = difficulty;
         this.type = type;
-    }
-
-    public boolean isDarkModeEnabled() {
-        return darkModeEnabled;
-    }
-
-    public String getGamemode() {
-        return gamemode;
+        this.gamemode = gamemode;
     }
 
     public String getAmount() {
@@ -40,6 +30,10 @@ public class SettingsInputData {
 
     public String getType() {
         return type;
+    }
+
+    public String getGamemode() {
+        return gamemode;
     }
 
 }
