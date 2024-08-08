@@ -69,6 +69,7 @@ public class PlayView extends JPanel implements PropertyChangeListener, ActionLi
         for (int i = 0; i < 4; i++) {
             if (options[i] != null) {
                 buttons[i].setText(options[i]);
+                buttons[i].updateUI();
                 buttonPanel.add(buttons[i]);
             }
         }
