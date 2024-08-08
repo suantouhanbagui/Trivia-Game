@@ -1,5 +1,7 @@
 package main2.use_case.settings;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.FlatIntelliJLaf;
 import main2.entities.QuestionList;
 
 import java.beans.PropertyChangeListener;
@@ -40,6 +42,14 @@ public class SettingsInteractor implements SettingsInputBoundary {
                     inputData.getDifficulty(),
                     inputData.getType());
             settingsDTO = new SettingsDTO(creationSettings, inputData.getGamemode());
+
+            if (inputData.getDarkMode().equals("Dark Mode")){
+                FlatDarculaLaf.setup();
+                FlatDarculaLaf.updateUI();
+            } else {
+                FlatIntelliJLaf.setup();
+                FlatIntelliJLaf.updateUI();
+            }
             firePropertyChanged();
             settingsOutputBoundary.prepareSuccessView();
         } catch (IllegalArgumentException e) {

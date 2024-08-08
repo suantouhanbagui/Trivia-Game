@@ -8,6 +8,7 @@ public class SettingsState {
     private String difficulty = QuestionSettings.getDifficultyOptions()[0];
     private String type = QuestionSettings.getDifficultyOptions()[0];
     private String gamemode = "Single player";
+    private String darkMode = "Light Mode";
 
     private String error = null;
 
@@ -50,6 +51,15 @@ public class SettingsState {
     public void setGamemode(String gamemode) {
         this.gamemode = gamemode;
     }
+
+    public String getDarkMode() {
+        return darkMode;
+    }
+
+    public void setDarkMode(String darkMode) {
+        this.darkMode = darkMode;
+    }
+
 
     public String getError() {
         return error;

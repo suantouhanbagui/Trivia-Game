@@ -15,8 +15,9 @@ public class SettingsController {
     }
 
     public void execute(String amount, String category, String difficulty,
-                        String type, String gamemode) {
-        SettingsInputData settingsInputData = new SettingsInputData(amount, category, difficulty, type, gamemode);
+                        String type, String gamemode, String darkMode) {
+        SettingsInputData settingsInputData = new SettingsInputData(amount, category,
+                difficulty, type, gamemode, darkMode);
         settingsInputBoundary.execute(settingsInputData);
     }
 }

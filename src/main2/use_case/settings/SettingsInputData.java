@@ -6,14 +6,16 @@ public class SettingsInputData {
     private final String difficulty;
     private final String type;
     private final String gamemode;
+    private final String darkMode;
 
     public SettingsInputData(String amount, String category, String difficulty,
-                             String type, String gamemode) {
+                             String type, String gamemode, String darkMode) {
         this.amount = amount;
         this.category = category;
         this.difficulty = difficulty;
         this.type = type;
         this.gamemode = gamemode;
+        this.darkMode = darkMode;
     }
 
     public String getAmount() {
@@ -34,6 +36,10 @@ public class SettingsInputData {
 
     public String getGamemode() {
         return gamemode;
+    }
+
+    public String getDarkMode(){
+        return darkMode;
     }
 
 }

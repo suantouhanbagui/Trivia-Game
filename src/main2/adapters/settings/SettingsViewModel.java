@@ -15,11 +15,13 @@ public class SettingsViewModel extends ViewModel {
     public String DIFFICULTY_LABEL = "Question difficulty:";
     public String TYPE_LABEL = "Question type:";
     public String GAMEMODE_LABEL = "Gamemode:";
+    public String TOGGLE_DARK_MODE_LABEL = "Toggle Light/Dark Mode";
 
     public String[] CATEGORY_OPTIONS = QuestionSettings.getCategoryOptions();
     public String[] DIFFICULTY_OPTIONS = QuestionSettings.getDifficultyOptions();
     public String[] TYPE_OPTIONS = QuestionSettings.getTypeOptions();
     public String[] GAMEMODE_OPTIONS = new String[] {"Single player", "Two player"};
+    public String[] LIGHT_DARK_MODE_OPTIONS = new String[] {"Light Mode", "Dark Mode"};
 
     public String CONFIRM_BUTTON_LABEL = "Confirm";
 
