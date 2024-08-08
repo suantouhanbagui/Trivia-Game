@@ -13,22 +13,16 @@ import java.beans.PropertyChangeListener;
 
 public class PlayView extends JPanel implements PropertyChangeListener, ActionListener {
     private final PlayController controller;
-    private final PlayViewModel viewModel;
 
     private final JLabel progressLabel;
     private final JLabel qTextLabel;
 
-    private final JButton button1;
-    private final JButton button2;
-    private final JButton button3;
-    private final JButton button4;
     private final JButton[] buttons;
     private final JPanel buttonPanel;
 
     public PlayView(PlayController controller,
                     PlayViewModel viewModel) {
         this.controller = controller;
-        this.viewModel = viewModel;
         viewModel.addPropertyChangeListener(this);
 
         // labels to show question number and text
@@ -44,10 +38,10 @@ public class PlayView extends JPanel implements PropertyChangeListener, ActionLi
         // panel for buttons
         buttonPanel = new JPanel(new GridLayout(2, 2));
         buttonPanel.setPreferredSize(new Dimension(800, 200));
-        button1 = new JButton();
-        button2 = new JButton();
-        button3 = new JButton();
-        button4 = new JButton();
+        JButton button1 = new JButton();
+        JButton button2 = new JButton();
+        JButton button3 = new JButton();
+        JButton button4 = new JButton();
         buttons = new JButton[] {button1, button2, button3, button4};
         for (JButton button:buttons) {
             button.setFont(viewModel.FONT);
@@ -94,10 +88,10 @@ public class PlayView extends JPanel implements PropertyChangeListener, ActionLi
         if (state.getError() != null) {
             JOptionPane.showMessageDialog(this, state.getError());
         } else {
-            setFields(state);
             if (state.getFeedback() != null) {
                 JOptionPane.showMessageDialog(this, state.getFeedback());
             }
+            setFields(state);
         }
     }
 }

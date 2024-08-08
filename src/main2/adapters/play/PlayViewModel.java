@@ -16,6 +16,10 @@ public class PlayViewModel extends ViewModel {
         super("play");
     }
 
+    public PlayViewModel(String viewName) {
+        super(viewName);
+    }
+
     public PlayState getState() {
         return state;
     }

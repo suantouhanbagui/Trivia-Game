@@ -15,14 +15,14 @@ import java.util.Collections;
 public class PlayPresenter implements PlayOutputBoundary {
     private final PlayViewModel playViewModel;
     private final StartViewModel startViewModel;
-    private final ViewManager viewManager;
+    private final ViewManager manager;
 
     public PlayPresenter(PlayViewModel playViewModel,
                          StartViewModel startViewModel,
-                         ViewManager viewManager) {
+                         ViewManager manager) {
         this.playViewModel = playViewModel;
         this.startViewModel = startViewModel;
-        this.viewManager = viewManager;
+        this.manager = manager;
     }
 
     @Override
@@ -33,43 +33,48 @@ public class PlayPresenter implements PlayOutputBoundary {
         Collections.shuffle(options);
 
         PlayState state = playViewModel.getState();
-
-        state.setProgress("Question " + String.valueOf(playOutputData.getIndex()) + " of " + String.valueOf(playOutputData.getAmount()));
+        String progress = "Question " +
+                playOutputData.getIndex() +
+                " of " +
+                playOutputData.getAmount();
+        state.setProgress(progress);
         state.setText("<html>" + nextQuestion.getQuestionText() + "</html>");
         state.setOptions(options.toArray(new String[4]));
         if (playOutputData.getPreviousCorrect() != null) {
             if (playOutputData.getPreviousCorrect()) {
                 state.setFeedback("Correct!");
             } else {
-                state.setFeedback("Incorrect! The answer was \"" + playOutputData.getPreviousAnswer() + "\".");
+                state.setFeedback("Incorrect! The answer was \"" +
+                        playOutputData.getPreviousAnswer() +
+                        "\".");
             }
         }
         state.setError(null);
         playViewModel.setState(state);
         playViewModel.firePropertyChanged();
-        viewManager.setActiveView(playViewModel.getViewName());
+        manager.setActiveView(playViewModel.getViewName());
     }
 
     @Override
-    public void prepareSuccessView(PlayOutputData playOutputData) {
+    public void prepareSuccessView(String message) {
         PlayState state = playViewModel.getState();
-        state.setFeedback(null);
         state.setError(null);
-        viewManager.setActiveView(startViewModel.getViewName());
-        Player player = playOutputData.getPlayers()[0];
+        state.setFeedback(null);
+        playViewModel.setState(state);
+        manager.setActiveView(startViewModel.getViewName());
         StartState startState = startViewModel.getState();
-        startState.setError(player.getName() + " scored " + String.valueOf(player.getScore()) + " points.");
+        startState.setError(message);
         startViewModel.setState(startState);
         startViewModel.firePropertyChanged();
     }
 
     @Override
     public void prepareFailView(String error) {
-        PlayState state = playViewModel.getState();
+        StartState state = startViewModel.getState();
         state.setError(error);
-        playViewModel.setState(state);
+        startViewModel.setState(state);
+        manager.setActiveView(startViewModel.getViewName());
         playViewModel.firePropertyChanged();
-        viewManager.setActiveView(startViewModel.getViewName());
     }
 
     @Override

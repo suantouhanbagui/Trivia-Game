@@ -10,12 +10,12 @@ public class PlayController {
         this.playInputBoundary = playInputBoundary;
     }
 
+    public void prepareView() {
+        playInputBoundary.prepareView();
+    }
+
     public void execute(String answer) {
         PlayInputData inputData = new PlayInputData(answer);
         playInputBoundary.execute(inputData);
-    }
-
-    public void prepareView() {
-        playInputBoundary.prepareView();
     }
 }
