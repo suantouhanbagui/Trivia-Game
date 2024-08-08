@@ -1,8 +1,8 @@
-package main.view;
+package main2.view;
 
-import main.adapters.play.PlayController;
-import main.adapters.play.PlayState;
-import main.adapters.play.PlayViewModel;
+import main2.adapters.play.PlayController;
+import main2.adapters.play.PlayState;
+import main2.adapters.play.PlayViewModel;
 
 import javax.swing.*;
 import java.awt.*;

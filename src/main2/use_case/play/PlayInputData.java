@@ -1,4 +1,4 @@
-package main.use_case.play;
+package main2.use_case.play;
 
 public class PlayInputData {
     private final String answer;

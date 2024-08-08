@@ -1,12 +1,12 @@
-package main.adapters.play;
+package main2.adapters.play;
 
-import main.adapters.start.StartState;
-import main.adapters.start.StartViewModel;
-import main.entities.Player;
-import main.entities.Question;
-import main.use_case.play.PlayOutputBoundary;
-import main.use_case.play.PlayOutputData;
-import main.view.ViewManager;
+import main2.adapters.start.StartState;
+import main2.adapters.start.StartViewModel;
+import main2.entities.Player;
+import main2.entities.Question;
+import main2.use_case.play.PlayOutputBoundary;
+import main2.use_case.play.PlayOutputData;
+import main2.view.ViewManager;
 
 import javax.swing.*;
 import java.util.ArrayList;

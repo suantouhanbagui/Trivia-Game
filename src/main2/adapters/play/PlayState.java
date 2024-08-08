@@ -1,4 +1,4 @@
-package main.adapters.play;
+package main2.adapters.play;
 
 public class PlayState {
     private String progress = "Question 1 of 10";

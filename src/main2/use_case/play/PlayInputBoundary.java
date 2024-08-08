@@ -1,7 +1,7 @@
-package main.use_case.play;
+package main2.use_case.play;
 
 public interface PlayInputBoundary {
-    void execute(PlayInputData PlayInputData);
+    void execute(PlayInputData playInputData);
 
     void prepareView();
 }

@@ -1,6 +1,6 @@
-package main.adapters.play;
+package main2.adapters.play;
 
-import main.adapters.ViewModel;
+import main2.adapters.ViewModel;
 
 import java.awt.*;
 import java.beans.PropertyChangeListener;

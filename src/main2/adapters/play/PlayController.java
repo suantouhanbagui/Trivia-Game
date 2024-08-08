@@ -1,7 +1,7 @@
-package main.adapters.play;
+package main2.adapters.play;
 
-import main.use_case.play.PlayInputBoundary;
-import main.use_case.play.PlayInputData;
+import main2.use_case.play.PlayInputBoundary;
+import main2.use_case.play.PlayInputData;
 
 public class PlayController {
     public PlayInputBoundary playInputBoundary;

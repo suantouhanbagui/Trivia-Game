@@ -1,7 +1,7 @@
-package main.use_case.play;
+package main2.use_case.play;
 
-import main.entities.Player;
-import main.entities.Question;
+import main2.entities.Player;
+import main2.entities.Question;
 
 public class PlayOutputData {
     private final int amount;

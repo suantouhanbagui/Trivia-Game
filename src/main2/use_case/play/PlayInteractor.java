@@ -1,12 +1,12 @@
-package main.use_case.play;
+package main2.use_case.play;
 
-import main.data_access.ResultRecordingDAO;
-import main.data_access.TriviaDBInterface;
-import main.entities.Player;
-import main.entities.Question;
-import main.entities.QuestionList;
-import main.use_case.settings.SettingsDTO;
-import main.use_case.settings.SettingsInteractor;
+import main2.data_access.ResultRecordingDAO;
+import main2.data_access.TriviaDBInterface;
+import main2.entities.Player;
+import main2.entities.Question;
+import main2.entities.QuestionList;
+import main2.use_case.settings.SettingsDTO;
+import main2.use_case.settings.SettingsInteractor;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
