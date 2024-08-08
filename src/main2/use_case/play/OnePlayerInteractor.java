@@ -1,45 +1,38 @@
-package main2.use_case.two_player;
+package main2.use_case.play;
 
 import main2.data_access.ResultRecordingDAO;
 import main2.data_access.TriviaDBInterface;
 import main2.entities.Player;
 import main2.entities.QuestionList;
-import main2.use_case.play.*;
 import main2.use_case.settings.SettingsInteractor;
 import java.io.IOException;
 
-public class TwoPlayerInteractor extends PlayInteractor {
-    private Player[] players = new Player[2];
-
-    public TwoPlayerInteractor(PlayOutputBoundary playOutputBoundary,
+public class OnePlayerInteractor extends PlayInteractor {
+    private Player player = null;
+    public OnePlayerInteractor(PlayOutputBoundary playOutputBoundary,
                                SettingsInteractor settingsInteractor,
                                TriviaDBInterface questionGenerator,
                                ResultRecordingDAO resultRecordingDAO) {
-        super(playOutputBoundary,
-                settingsInteractor,
-                questionGenerator,
-                resultRecordingDAO);
+        super(playOutputBoundary,settingsInteractor,questionGenerator,resultRecordingDAO);
     }
 
     @Override
     public void prepareView() {
-        String name;
-        for (int i = 1; i <= 2; i++) {
-            name = playOutputBoundary.gatherName("Enter the name of player " + i + ":");
-            if (name == null) {
-                return;
-            }
-            players[i - 1] = new Player(name);
+        String name = playOutputBoundary.gatherName("Enter your name:");
+        if (name == null) {
+            return;
         }
+        player = new Player(name);
 
         QuestionList creationSettings = settingsDTO.getCreationSettings();
-        int amount = creationSettings.size() * 2;
+        int amount = creationSettings.size();
         try {
             questionList = questionGenerator.getQuestions(amount,
                     creationSettings.getCategory(),
                     creationSettings.getDifficulty(),
                     creationSettings.getType());
             question = questionList.next();
+            Player[] players = new Player[]{player};
             PlayOutputData playOutputData = new PlayOutputData(amount,
                     1,
                     question,
@@ -54,7 +47,7 @@ public class TwoPlayerInteractor extends PlayInteractor {
     }
 
     private void reset() {
-        players = new Player[2];
+        player = null;
         questionList = null;
         question = null;
     }
@@ -65,14 +58,14 @@ public class TwoPlayerInteractor extends PlayInteractor {
         String correctAnswer = question.getCorrectAnswer();
         Boolean previousCorrect = answer.equals(correctAnswer);
         if (previousCorrect) {
-            players[(questionList.getIndex() - 1) % 2].stepScore();
+            player.stepScore();
         }
         if (questionList.hasNext()) {
             question = questionList.next();
             PlayOutputData playOutputData = new PlayOutputData(questionList.size(),
                     questionList.getIndex(),
                     question,
-                    players,
+                    new Player[]{player},
                     previousCorrect,
                     correctAnswer);
             playOutputBoundary.prepareView(playOutputData);
@@ -80,19 +73,14 @@ public class TwoPlayerInteractor extends PlayInteractor {
             PlayOutputData playOutputData = new PlayOutputData(questionList.size(),
                     questionList.getIndex(),
                     question,
-                    players,
+                    new Player[]{player},
                     previousCorrect,
                     correctAnswer);
             playOutputBoundary.prepareView(playOutputData);
-            String message;
-            int temp = players[0].compareTo(players[1]);
-            if (temp > 0) {
-                message = players[0].getName() + " wins!";
-            } else if (temp < 0) {
-                message = players[0].getName() + " wins!";
-            } else {
-                message = "It's a tie!";
-            }
+            String message = player.getName() +
+                    " scored " +
+                    player.getScore() +
+                    " points.";
             playOutputBoundary.prepareSuccessView(message);
             try {
                 recordResult();
@@ -105,25 +93,11 @@ public class TwoPlayerInteractor extends PlayInteractor {
     }
 
     private void recordResult() throws IOException {
-        StringBuilder results = new StringBuilder();
-        results.append(players[0].getName())
-                .append(": ")
-                .append(players[0].getScore())
-                .append("; ")
-                .append(players[1].getName())
-                .append(": ")
-                .append(players[1].getScore())
-                .append("; Result: ");
-        int temp = players[0].compareTo(players[1]);
-        if (temp > 0) {
-            results.append(players[0].getName())
-                    .append(" wins!");
-        } else if (temp < 0) {
-            results.append(players[1].getName())
-                    .append(" wins!");
-        } else {
-            results.append("Tie");
-        }
-        resultRecordingDAO.recordResult(results.toString());
+        String results = player.toString() +
+                "; Results: " +
+                player.getName() +
+                " scored " +
+                player.getScore();
+        resultRecordingDAO.recordResult(results);
     }
 }
