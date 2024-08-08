@@ -20,6 +20,7 @@ public class SettingsView extends JPanel implements ActionListener, PropertyChan
     private final JComboBox<String> difficultyDropdown;
     private final JComboBox<String> typeDropdown;
     private final JComboBox<String> gamemodeDropdown;
+    private final JComboBox<String > darkModeDropdown;
 
     private final JButton confirmButton;
 
@@ -73,6 +74,13 @@ public class SettingsView extends JPanel implements ActionListener, PropertyChan
         gamemodeDropdown = new JComboBox<>(viewModel.GAMEMODE_OPTIONS);
         gamemodeDropdown.setFont(viewModel.FONT);
         dropdownsPanel.add(gamemodeDropdown);
+        // light/dark mode
+        JLabel darkModeLabel = new JLabel(viewModel.TOGGLE_DARK_MODE_LABEL);
+        darkModeLabel.setFont(viewModel.FONT);
+        dropdownsPanel.add(darkModeLabel);
+        darkModeDropdown = new JComboBox<>(viewModel.LIGHT_DARK_MODE_OPTIONS);
+        darkModeDropdown.setFont(viewModel.FONT);
+        dropdownsPanel.add(darkModeDropdown);
 
         // create confirm button
         confirmButton = new JButton(viewModel.CONFIRM_BUTTON_LABEL);
@@ -95,7 +103,8 @@ public class SettingsView extends JPanel implements ActionListener, PropertyChan
                 (String) categoryDropdown.getSelectedItem(),
                 (String) difficultyDropdown.getSelectedItem(),
                 (String) typeDropdown.getSelectedItem(),
-                (String) gamemodeDropdown.getSelectedItem());
+                (String) gamemodeDropdown.getSelectedItem(),
+                (String) darkModeDropdown.getSelectedItem());
     }
 
     private void setFields(SettingsState state) {
@@ -104,6 +113,8 @@ public class SettingsView extends JPanel implements ActionListener, PropertyChan
         difficultyDropdown.setSelectedItem(state.getDifficulty());
         typeDropdown.setSelectedItem(state.getType());
         gamemodeDropdown.setSelectedItem(state.getGamemode());
+        darkModeDropdown.setSelectedItem((state.getDarkMode()));
+
     }
 
     @Override
