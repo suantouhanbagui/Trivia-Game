@@ -37,7 +37,7 @@ public class SettingsView extends JPanel implements ActionListener, PropertyChan
 
         // create panel for dropdowns
         JPanel dropdownsPanel = new JPanel();
-        dropdownsPanel.setLayout(new GridLayout(5, 2));
+        dropdownsPanel.setLayout(new GridLayout(6, 2));
         dropdownsPanel.setPreferredSize(new Dimension(800, 250));
         // amount
         JLabel amountLabel = new JLabel(viewModel.AMOUNT_LABEL);
@@ -113,8 +113,7 @@ public class SettingsView extends JPanel implements ActionListener, PropertyChan
         difficultyDropdown.setSelectedItem(state.getDifficulty());
         typeDropdown.setSelectedItem(state.getType());
         gamemodeDropdown.setSelectedItem(state.getGamemode());
-        darkModeDropdown.setSelectedItem((state.getDarkMode()));
-
+        darkModeDropdown.setSelectedItem(state.getDarkMode());
     }
 
     @Override

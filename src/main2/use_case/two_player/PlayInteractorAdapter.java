@@ -11,12 +11,12 @@ import java.beans.PropertyChangeListener;
 
 public class PlayInteractorAdapter implements PlayInputBoundary, PropertyChangeListener {
     private final PlayInteractor playInteractor;
-    private final TwoPlayerInteractor twoPlayerInteractor;
-
+    private final PlayInteractor twoPlayerInteractor;
     private PlayInteractor activeInteractor;
 
+
     public PlayInteractorAdapter(PlayInteractor playInteractor,
-                                 TwoPlayerInteractor twoPlayerInteractor,
+                                 PlayInteractor twoPlayerInteractor,
                                  SettingsInteractor settingsInteractor) {
         this.playInteractor = playInteractor;
         this.twoPlayerInteractor = twoPlayerInteractor;
