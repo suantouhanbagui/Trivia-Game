@@ -120,5 +120,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="flatlaf-3.5" level="project" />
+    <orderEntry type="library" name="formdev.flatlaf.intellij.themes" level="project" />
   </component>
 </module>

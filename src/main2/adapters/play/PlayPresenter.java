@@ -74,7 +74,7 @@ public class PlayPresenter implements PlayOutputBoundary {
         state.setError(error);
         startViewModel.setState(state);
         manager.setActiveView(startViewModel.getViewName());
-        playViewModel.firePropertyChanged();
+        startViewModel.firePropertyChanged();
     }
 
     @Override
