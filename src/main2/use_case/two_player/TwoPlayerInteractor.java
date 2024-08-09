@@ -3,13 +3,24 @@ package main2.use_case.two_player;
 import main2.data_access.ResultRecordingDAO;
 import main2.data_access.TriviaDBInterface;
 import main2.entities.Player;
+import main2.entities.Question;
 import main2.entities.QuestionList;
-import main2.use_case.play.*;
+import main2.use_case.play.PlayInputData;
+import main2.use_case.play.PlayInteractor;
+import main2.use_case.play.PlayOutputBoundary;
+import main2.use_case.play.PlayOutputData;
 import main2.use_case.settings.SettingsInteractor;
+
 import java.io.IOException;
 
 public class TwoPlayerInteractor extends PlayInteractor {
+    private final PlayOutputBoundary playOutputBoundary;
+    private final TriviaDBInterface questionGenerator;
+    private final ResultRecordingDAO resultRecordingDAO;
+
     private Player[] players = new Player[2];
+    private QuestionList questionList;
+    private Question question;
 
     public TwoPlayerInteractor(PlayOutputBoundary playOutputBoundary,
                                SettingsInteractor settingsInteractor,
@@ -19,6 +30,11 @@ public class TwoPlayerInteractor extends PlayInteractor {
                 settingsInteractor,
                 questionGenerator,
                 resultRecordingDAO);
+        this.playOutputBoundary = playOutputBoundary;
+        this.questionGenerator = questionGenerator;
+        settingsInteractor.addPropertyChangeListener(this);
+        settingsInteractor.firePropertyChanged();
+        this.resultRecordingDAO = resultRecordingDAO;
     }
 
     @Override
