@@ -3,13 +3,10 @@ package main2.data_access;
 import java.io.*;
 import java.util.ArrayList;
 
-/** A data access object for retrieving the results of previous games.
- * TODO: Update javadoc.
- * */
+/** A data access object for retrieving the results of previous games. */
 public class ResultRetrievalDAO {
     /**
-     * Implementation of createFileAccessor from ResultFileAccessInterface.
-     * Creates a BufferedReader using the result record file.
+     * Creates a BufferedReader using the results file.
      *
      * @return a BufferedReader that reads from the result record file.
      * @throws IOException when an I/O error occurs while creating the object.
