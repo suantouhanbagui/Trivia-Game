@@ -3,5 +3,3 @@ Alice: 0; Bob: 1; Result: Alice wins!
 Alice: 1; Bob: 1; Result: TieAlice, 0; Bob, 2; Result: Bob wins!
 Alice, 3; Bob, 2; Result: Alice wins!
 Alice, 2; Result: Alice scored 2
-111: 3; 222: 0; Result: 111 wins!
-222: 2; 333: 5; Result: 333 wins!

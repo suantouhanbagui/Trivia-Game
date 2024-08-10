@@ -69,7 +69,7 @@ public class Main2 {
                 manager);
         TriviaDBInterface questionGenerator = new TriviaDB();
         ResultRecordingDAO resultRecordingDAO = new ResultRecordingDAO();
-        PlayInteractor playInteractor = new OnePlayerInteractor(playPresenter,
+        OnePlayerInteractor playInteractor = new OnePlayerInteractor(playPresenter,
                 settingsInteractor,
                 questionGenerator,
                 resultRecordingDAO);
@@ -77,7 +77,7 @@ public class Main2 {
         PlayOutputBoundary twoPlayerPresenter = new TwoPlayerPresenter(twoPlayerViewModel,
                 startViewModel,
                 manager);
-        PlayInteractor twoPlayerInteractor = new TwoPlayerInteractor(twoPlayerPresenter,
+        TwoPlayerInteractor twoPlayerInteractor = new TwoPlayerInteractor(twoPlayerPresenter,
                 settingsInteractor,
                 questionGenerator,
                 resultRecordingDAO);
