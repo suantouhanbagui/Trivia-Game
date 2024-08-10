@@ -14,25 +14,30 @@ public class OnePlayerInteractor extends PlayInteractor {
                                SettingsInteractor settingsInteractor,
                                TriviaDBInterface questionGenerator,
                                ResultRecordingDAO resultRecordingDAO) {
-        super(playOutputBoundary,settingsInteractor,questionGenerator,resultRecordingDAO);
+        super(playOutputBoundary,
+                settingsInteractor,
+                questionGenerator,
+                resultRecordingDAO);
     }
 
     @Override
     public void prepareView() {
-        String name = playOutputBoundary.gatherName("Enter your name:");
-        if (name == null) {
-            return;
-        }
-        player = new Player(name);
-
-        QuestionList creationSettings = settingsDTO.getCreationSettings();
-        int amount = creationSettings.size();
         try {
+            // generate questions
+            QuestionList creationSettings = settingsDTO.getCreationSettings();
+            int amount = creationSettings.size();
             questionList = questionGenerator.getQuestions(amount,
                     creationSettings.getCategory(),
                     creationSettings.getDifficulty(),
                     creationSettings.getType());
             question = questionList.next();
+            // create player
+            String name = playOutputBoundary.gatherName("Enter your name:");
+            if (name == null) {
+                return;
+            }
+            player = new Player(name);
+            // create output data
             Player[] players = new Player[]{player};
             PlayOutputData playOutputData = new PlayOutputData(amount,
                     1,
@@ -42,6 +47,7 @@ public class OnePlayerInteractor extends PlayInteractor {
                     null);
             playOutputBoundary.prepareView(playOutputData);
         } catch (IOException e) {
+            // inform user of the error
             playOutputBoundary.prepareFailView(e.getMessage());
             reset();
         }
@@ -55,12 +61,14 @@ public class OnePlayerInteractor extends PlayInteractor {
 
     @Override
     public void execute(PlayInputData playInputData) {
+        // increment score if the answer is correct
         String answer = playInputData.getAnswer();
         String correctAnswer = question.getCorrectAnswer();
         Boolean previousCorrect = answer.equals(correctAnswer);
         if (previousCorrect) {
             player.stepScore();
         }
+        // get next question if possible and send output data
         if (questionList.hasNext()) {
             question = questionList.next();
             PlayOutputData playOutputData = new PlayOutputData(questionList.size(),
@@ -71,6 +79,7 @@ public class OnePlayerInteractor extends PlayInteractor {
                     correctAnswer);
             playOutputBoundary.prepareView(playOutputData);
         } else {
+            // give feedback for the last question
             PlayOutputData playOutputData = new PlayOutputData(questionList.size(),
                     questionList.getIndex(),
                     question,
@@ -78,11 +87,13 @@ public class OnePlayerInteractor extends PlayInteractor {
                     previousCorrect,
                     correctAnswer);
             playOutputBoundary.prepareView(playOutputData);
+            // present results to the user
             String message = player.getName() +
                     " scored " +
                     player.getScore() +
                     " points.";
             playOutputBoundary.prepareSuccessView(message);
+            // save results
             try {
                 recordResult();
             } catch (IOException e) {
