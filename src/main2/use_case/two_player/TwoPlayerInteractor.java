@@ -27,9 +27,8 @@ public class TwoPlayerInteractor extends PlayInteractor {
 
     @Override
     public void prepareView() {
-
         QuestionList creationSettings = settingsDTO.getCreationSettings();
-        int amount = creationSettings.size() * 2;
+        int amount = creationSettings.size();
         try {
             // generate questions
             questionList = questionGenerator.getQuestions(amount,
@@ -119,13 +118,13 @@ public class TwoPlayerInteractor extends PlayInteractor {
 
     private void recordResult() throws IOException {
         StringBuilder results = new StringBuilder();
-        results.append(players[0].getName())
-                .append(": ")
-                .append(players[0].getScore())
+        results.append(players[0].toString())
+                .append("/")
+                .append(questionList.size() / 2)
                 .append("; ")
-                .append(players[1].getName())
-                .append(": ")
-                .append(players[1].getScore())
+                .append(players[1].toString())
+                .append("/")
+                .append(questionList.size() / 2)
                 .append("; Result: ");
         int temp = players[0].compareTo(players[1]);
         if (temp > 0) {

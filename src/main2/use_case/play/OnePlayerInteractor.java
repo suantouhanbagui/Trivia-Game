@@ -106,10 +106,14 @@ public class OnePlayerInteractor extends PlayInteractor {
 
     private void recordResult() throws IOException {
         String results = player.toString() +
+                "/" +
+                questionList.size() +
                 "; Results: " +
                 player.getName() +
                 " scored " +
-                player.getScore();
+                player.getScore() +
+                "/" +
+                questionList.size();
         resultRecordingDAO.recordResult(results);
     }
 }

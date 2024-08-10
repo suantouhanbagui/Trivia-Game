@@ -34,8 +34,10 @@ public class SettingsInteractor implements SettingsInputBoundary {
     public void execute(SettingsInputData inputData) {
         try {
             int amount = Integer.parseInt(inputData.getAmount());
-            if (amount < 10 | amount > 25) {
+            if (amount < 10 | amount > 50) {
                 throw new NumberFormatException();
+            } else if (inputData.getGamemode() == "Two player" & amount % 2 != 0) {
+                throw new IllegalArgumentException("Amount of questions must be even for two player mode.");
             }
             QuestionList creationSettings = new QuestionList(amount,
                     inputData.getCategory(),
@@ -54,7 +56,7 @@ public class SettingsInteractor implements SettingsInputBoundary {
             settingsOutputBoundary.prepareSuccessView();
         } catch (IllegalArgumentException e) {
             if (e instanceof NumberFormatException) {
-                settingsOutputBoundary.prepareFailView("Questions per player must be between 10 and 25 inclusive.");
+                settingsOutputBoundary.prepareFailView("Questions per player must be an integer between 10 and 50 inclusive.");
             } else {
                 settingsOutputBoundary.prepareFailView(e.getMessage());
             }
