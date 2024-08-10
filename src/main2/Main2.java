@@ -17,7 +17,6 @@ import main2.data_access.ResultRecordingDAO;
 import main2.data_access.ResultRetrievalDAO;
 import main2.data_access.TriviaDB;
 import main2.data_access.TriviaDBInterface;
-import main2.use_case.play.PlayInteractor;
 import main2.use_case.play.OnePlayerInteractor;
 import main2.use_case.play.PlayOutputBoundary;
 import main2.use_case.results.ResultsInteractor;
