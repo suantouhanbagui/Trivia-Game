@@ -113,8 +113,7 @@ public class SettingsView extends JPanel implements ActionListener, PropertyChan
         difficultyDropdown.setSelectedItem(state.getDifficulty());
         typeDropdown.setSelectedItem(state.getType());
         gamemodeDropdown.setSelectedItem(state.getGamemode());
-        darkModeDropdown.setSelectedItem((state.getDarkMode()));
-
+        darkModeDropdown.setSelectedItem(state.getDarkMode());
     }
 
     @Override

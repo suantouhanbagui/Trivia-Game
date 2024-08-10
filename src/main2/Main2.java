@@ -18,6 +18,7 @@ import main2.data_access.ResultRetrievalDAO;
 import main2.data_access.TriviaDB;
 import main2.data_access.TriviaDBInterface;
 import main2.use_case.play.PlayInteractor;
+import main2.use_case.play.OnePlayerInteractor;
 import main2.use_case.play.PlayOutputBoundary;
 import main2.use_case.results.ResultsInteractor;
 import main2.use_case.results.ResultsOutputBoundary;
@@ -68,7 +69,7 @@ public class Main2 {
                 manager);
         TriviaDBInterface questionGenerator = new TriviaDB();
         ResultRecordingDAO resultRecordingDAO = new ResultRecordingDAO();
-        PlayInteractor playInteractor = new PlayInteractor(playPresenter,
+        OnePlayerInteractor playInteractor = new OnePlayerInteractor(playPresenter,
                 settingsInteractor,
                 questionGenerator,
                 resultRecordingDAO);

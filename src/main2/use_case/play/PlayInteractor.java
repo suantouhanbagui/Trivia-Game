@@ -2,7 +2,6 @@ package main2.use_case.play;
 
 import main2.data_access.ResultRecordingDAO;
 import main2.data_access.TriviaDBInterface;
-import main2.entities.Player;
 import main2.entities.Question;
 import main2.entities.QuestionList;
 import main2.use_case.settings.SettingsDTO;
@@ -10,16 +9,15 @@ import main2.use_case.settings.SettingsInteractor;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
 
-public class PlayInteractor implements PlayInputBoundary, PropertyChangeListener {
-    private final PlayOutputBoundary playOutputBoundary;
-    private final TriviaDBInterface questionGenerator;
-    private final ResultRecordingDAO resultRecordingDAO;
+public abstract class PlayInteractor implements PlayInputBoundary, PropertyChangeListener {
+    protected final PlayOutputBoundary playOutputBoundary;
+    protected final TriviaDBInterface questionGenerator;
+    protected final ResultRecordingDAO resultRecordingDAO;
 
-    private Player player = null;
-    private QuestionList questionList;
-    private Question question;
+
+    protected QuestionList questionList;
+    protected Question question;
     protected SettingsDTO settingsDTO;
 
     public PlayInteractor(PlayOutputBoundary playOutputBoundary,
@@ -31,91 +29,6 @@ public class PlayInteractor implements PlayInputBoundary, PropertyChangeListener
         settingsInteractor.firePropertyChanged();
         this.questionGenerator = questionGenerator;
         this.resultRecordingDAO = resultRecordingDAO;
-    }
-
-    @Override
-    public void prepareView() {
-        String name = playOutputBoundary.gatherName("Enter your name:");
-        if (name == null) {
-            return;
-        }
-        player = new Player(name);
-
-        QuestionList creationSettings = settingsDTO.getCreationSettings();
-        int amount = creationSettings.size();
-        try {
-            questionList = questionGenerator.getQuestions(amount,
-                    creationSettings.getCategory(),
-                    creationSettings.getDifficulty(),
-                    creationSettings.getType());
-            question = questionList.next();
-            Player[] players = new Player[]{player};
-            PlayOutputData playOutputData = new PlayOutputData(amount,
-                    1,
-                    question,
-                    players,
-                    null,
-                    null);
-            playOutputBoundary.prepareView(playOutputData);
-        } catch (IOException e) {
-            playOutputBoundary.prepareFailView(e.getMessage());
-            reset();
-        }
-    }
-
-    private void reset() {
-        player = null;
-        questionList = null;
-        question = null;
-    }
-
-    @Override
-    public void execute(PlayInputData playInputData) {
-        String answer = playInputData.getAnswer();
-        String correctAnswer = question.getCorrectAnswer();
-        Boolean previousCorrect = answer.equals(correctAnswer);
-        if (previousCorrect) {
-            player.stepScore();
-        }
-        if (questionList.hasNext()) {
-            question = questionList.next();
-            PlayOutputData playOutputData = new PlayOutputData(questionList.size(),
-                    questionList.getIndex(),
-                    question,
-                    new Player[]{player},
-                    previousCorrect,
-                    correctAnswer);
-            playOutputBoundary.prepareView(playOutputData);
-        } else {
-            PlayOutputData playOutputData = new PlayOutputData(questionList.size(),
-                    questionList.getIndex(),
-                    question,
-                    new Player[]{player},
-                    previousCorrect,
-                    correctAnswer);
-            playOutputBoundary.prepareView(playOutputData);
-            String message = player.getName() +
-                    " scored " +
-                    player.getScore() +
-                    " points.";
-            playOutputBoundary.prepareSuccessView(message);
-            try {
-                recordResult();
-            } catch (IOException e) {
-                playOutputBoundary.prepareFailView("Failed to record results of this game.");
-            } finally {
-                reset();
-            }
-        }
-    }
-
-    private void recordResult() throws IOException {
-        String results = player.toString() +
-                "; Results: " +
-                player.getName() +
-                " scored " +
-                player.getScore();
-        resultRecordingDAO.recordResult(results);
     }
 
     @Override
