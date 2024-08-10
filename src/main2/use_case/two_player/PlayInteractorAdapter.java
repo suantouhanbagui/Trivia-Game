@@ -12,9 +12,8 @@ import java.beans.PropertyChangeListener;
 
 public class PlayInteractorAdapter implements PlayInputBoundary, PropertyChangeListener {
     private final OnePlayerInteractor onePlayerInteractor;
-    private final PlayInteractor twoPlayerInteractor;
+    private final TwoPlayerInteractor twoPlayerInteractor;
     private PlayInteractor activeInteractor;
-
 
     public PlayInteractorAdapter(OnePlayerInteractor onePlayerInteractor,
                                  TwoPlayerInteractor twoPlayerInteractor,
