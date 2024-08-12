@@ -29,7 +29,7 @@ import main.view.*;
 
 import javax.swing.*;
 
-public class Main2 {
+public class Main {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Trivia Quiz");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

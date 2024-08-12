@@ -11,7 +11,7 @@ public class ResultRecordingDAO {
      * @throws IOException when an I/O error occurs while creating the object.
      */
     public BufferedWriter createFileAccessor() throws IOException {
-        File resultFile = new File("src\\main2\\data_access\\result.txt");
+        File resultFile = new File("src\\main\\data_access\\result.txt");
         FileWriter fileWriter = new FileWriter(resultFile,true);
         return new BufferedWriter(fileWriter);
     }
