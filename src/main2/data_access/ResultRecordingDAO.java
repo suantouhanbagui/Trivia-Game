@@ -2,13 +2,11 @@ package main2.data_access;
 
 import java.io.*;
 
-/** A data access object for recording the results of a game.
- * TODO: Update javadoc.
- * */
+/** A data access object for recording the results of a game. */
 public class ResultRecordingDAO {
     /**
-     * Implementation of createFileAccessor from ResultFileAccessInterface.
-     * Creates a BufferedWriter and assigns it to
+     * Creates a BufferedWriter and assigns it to the results file.
+     *
      * @return a BufferedWriter that appends onto result record file.
      * @throws IOException when an I/O error occurs while creating the object.
      */

@@ -10,7 +10,7 @@ import java.beans.PropertyChangeSupport;
 public class SettingsViewModel extends ViewModel {
     public String INSTRUCTIONS_LABEL = "Please select from the dropdowns:";
 
-    public String AMOUNT_LABEL = "Questions per player:";
+    public String AMOUNT_LABEL = "Amount of questions::";
     public String CATEGORY_LABEL = "Question category:";
     public String DIFFICULTY_LABEL = "Question difficulty:";
     public String TYPE_LABEL = "Question type:";

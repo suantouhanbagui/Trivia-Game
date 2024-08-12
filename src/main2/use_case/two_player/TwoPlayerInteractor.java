@@ -27,23 +27,25 @@ public class TwoPlayerInteractor extends PlayInteractor {
 
     @Override
     public void prepareView() {
-        String name;
-        for (int i = 1; i <= 2; i++) {
-            name = playOutputBoundary.gatherName("Enter the name of player " + i + ":");
-            if (name == null) {
-                return;
-            }
-            players[i - 1] = new Player(name);
-        }
-
         QuestionList creationSettings = settingsDTO.getCreationSettings();
-        int amount = creationSettings.size() * 2;
+        int amount = creationSettings.size();
         try {
+            // generate questions
             questionList = questionGenerator.getQuestions(amount,
                     creationSettings.getCategory(),
                     creationSettings.getDifficulty(),
                     creationSettings.getType());
             question = questionList.next();
+            // create players
+            String name;
+            for (int i = 1; i <= 2; i++) {
+                name = playOutputBoundary.gatherName("Enter the name of player " + i + ":");
+                if (name == null) {
+                    return;
+                }
+                players[i - 1] = new Player(name);
+            }
+            // create output data
             PlayOutputData playOutputData = new PlayOutputData(amount,
                     1,
                     question,
@@ -52,6 +54,7 @@ public class TwoPlayerInteractor extends PlayInteractor {
                     null);
             playOutputBoundary.prepareView(playOutputData);
         } catch (IOException e) {
+            // inform user of the error
             playOutputBoundary.prepareFailView(e.getMessage());
             reset();
         }
@@ -65,12 +68,14 @@ public class TwoPlayerInteractor extends PlayInteractor {
 
     @Override
     public void execute(PlayInputData playInputData) {
+        // increment current player's score if the answer is correct
         String answer = playInputData.getAnswer();
         String correctAnswer = question.getCorrectAnswer();
         Boolean previousCorrect = answer.equals(correctAnswer);
         if (previousCorrect) {
             players[(questionList.getIndex() - 1) % 2].stepScore();
         }
+        // get next question if possible and send output data
         if (questionList.hasNext()) {
             question = questionList.next();
             PlayOutputData playOutputData = new PlayOutputData(questionList.size(),
@@ -81,6 +86,7 @@ public class TwoPlayerInteractor extends PlayInteractor {
                     correctAnswer);
             playOutputBoundary.prepareView(playOutputData);
         } else {
+            // give feedback for the last question
             PlayOutputData playOutputData = new PlayOutputData(questionList.size(),
                     questionList.getIndex(),
                     question,
@@ -88,6 +94,7 @@ public class TwoPlayerInteractor extends PlayInteractor {
                     previousCorrect,
                     correctAnswer);
             playOutputBoundary.prepareView(playOutputData);
+            // present results to the user
             String message;
             int temp = players[0].compareTo(players[1]);
             if (temp > 0) {
@@ -98,6 +105,7 @@ public class TwoPlayerInteractor extends PlayInteractor {
                 message = "It's a tie!";
             }
             playOutputBoundary.prepareSuccessView(message);
+            // save results
             try {
                 recordResult();
             } catch (IOException e) {
@@ -110,13 +118,13 @@ public class TwoPlayerInteractor extends PlayInteractor {
 
     private void recordResult() throws IOException {
         StringBuilder results = new StringBuilder();
-        results.append(players[0].getName())
-                .append(": ")
-                .append(players[0].getScore())
+        results.append(players[0].toString())
+                .append("/")
+                .append(questionList.size() / 2)
                 .append("; ")
-                .append(players[1].getName())
-                .append(": ")
-                .append(players[1].getScore())
+                .append(players[1].toString())
+                .append("/")
+                .append(questionList.size() / 2)
                 .append("; Result: ");
         int temp = players[0].compareTo(players[1]);
         if (temp > 0) {
