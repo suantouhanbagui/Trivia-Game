@@ -45,7 +45,7 @@ public class SettingsInteractor implements SettingsInputBoundary {
                     inputData.getType());
             settingsDTO = new SettingsDTO(creationSettings, inputData.getGamemode());
 
-            if (inputData.getDarkMode().equals("Dark Mode")){
+            if (inputData.getDarkMode().equals("Dark Mode")) {
                 FlatDarculaLaf.setup();
                 FlatDarculaLaf.updateUI();
             } else {
