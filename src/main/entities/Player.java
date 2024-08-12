@@ -35,15 +35,8 @@ public class Player implements Comparable<Player>{
         return score;
     }
 
-    /**
-     * Set the player's score.
-     *
-     * @param score Set the player's score to this.
-     */
-    public void setScore(int score) {
-        this.score = score;
-    }
-    public void addScore(){
+    /** Increment the player's score. */
+    public void stepScore(){
         this.score += 1;
     }
 
@@ -53,7 +46,7 @@ public class Player implements Comparable<Player>{
      * @return the string representation.
      */
     public String toString() {
-        return name + ", " + score;
+        return name + ": " + score;
     }
 
     /**

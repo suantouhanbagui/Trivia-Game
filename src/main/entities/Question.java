@@ -3,7 +3,7 @@ package main.entities;
 import java.util.ArrayList;
 
 /** Entity to represent a question. */
-public class Question extends AbstractQuestionLike{
+public class Question extends QuestionSettings {
     /** Question body text. This is the question the players will be asked. */
     private final String questionText;
     /** Correct answer to the question. */

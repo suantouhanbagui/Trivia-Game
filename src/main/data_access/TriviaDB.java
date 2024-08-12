@@ -1,6 +1,6 @@
 package main.data_access;
 
-import main.entities.QuestionSettingOptions;
+import main.entities.QuestionSettings;
 import main.entities.Question;
 import main.entities.QuestionList;
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -54,16 +54,18 @@ public class TriviaDB implements TriviaDBInterface {
      *        50 inclusive. If the amount exceeds the number of questions that
      *        exist in the database with the given settings, an exception will
      *        be thrown.
-     * @param category the category of the generated questions. Must be a
-     *        String from QuestionSettingOptions.getCategoryOptions().
-     * @param difficulty the difficulty of the generated questions. Must be a
-     *        String from QuestionSettingOptions.getDifficultyOptions().
-     * @param type the type of the generated questions. Must be a String from
-     *        QuestionSettingOptions.getTypeOptions().
+     * @param category the category of the generated questions. Must be an item
+     *        of QuestionSettings.getCategoryOptions().
+     * @param difficulty the difficulty of the generated questions. Must be an
+     *        item of QuestionSettings.getDifficultyOptions().
+     * @param type the type of the generated questions. Must be an item of
+     *        QuestionSettings.getTypeOptions().
      * @return A QuestionList with the given settings.
+     * @throws IOException when the database does not have enough questions
+     *         with the given settings.
      */
     @Override
-    public QuestionList getQuestions(int amount, String category, String difficulty, String type) {
+    public QuestionList getQuestions(int amount, String category, String difficulty, String type) throws IOException {
         // Generate the url for the API call.
         StringBuilder url = new StringBuilder("https://opentdb.com/api.php?");
         url.append("amount=").append(amount);
@@ -88,7 +90,9 @@ public class TriviaDB implements TriviaDBInterface {
             responseBody = this.APICall(url.toString());
         }
         // If anything else unexpected happens, throw a RuntimeException.
-        if (responseBody.getInt("response_code") != 0) {
+        if (responseBody.getInt("response_code") == 4) {
+            throw new IOException("There are not enough questions with the selected settings.");
+        } else if (responseBody.getInt("response_code") != 0) {
             throw new RuntimeException("Got this from the API call->" + responseBody);
         }
         JSONArray questions = responseBody.getJSONArray("results");
@@ -173,9 +177,9 @@ public class TriviaDB implements TriviaDBInterface {
         private final HashMap<String, String> typeMap = new HashMap<>(2);
 
         /** Instantiates a converter by setting up categoryMap, difficultyMap and typeMap. */
-        public APIParameterConverter() {
+        private APIParameterConverter() {
             // Put key-value pairs into categoryMap.
-            String[] keys = QuestionSettingOptions.getCategoryOptions();
+            String[] keys = QuestionSettings.getCategoryOptions();
             categoryMap.put("Any Category", null);
             for (int i = 1; i < keys.length; i++) {
                 categoryMap.put(keys[i], i + 8);
