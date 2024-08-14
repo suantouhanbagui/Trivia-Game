@@ -3,6 +3,7 @@ package main.use_case.settings;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import main.entities.QuestionList;
+import org.jetbrains.annotations.NotNull;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -33,18 +34,8 @@ public class SettingsInteractor implements SettingsInputBoundary {
     @Override
     public void execute(SettingsInputData inputData) {
         try {
-            int amount = Integer.parseInt(inputData.getAmount());
-            if (amount < 10 | amount > 50) {
-                throw new NumberFormatException();
-            } else if (inputData.getGamemode() == "Two player" & amount % 2 != 0) {
-                throw new IllegalArgumentException("Amount of questions must be even for two player mode.");
-            }
-            QuestionList creationSettings = new QuestionList(amount,
-                    inputData.getCategory(),
-                    inputData.getDifficulty(),
-                    inputData.getType());
+            QuestionList creationSettings = getCreationSettings(inputData);
             settingsDTO = new SettingsDTO(creationSettings, inputData.getGamemode());
-
             if (inputData.getDarkMode().equals("Dark Mode")) {
                 FlatDarculaLaf.setup();
                 FlatDarculaLaf.updateUI();
@@ -56,10 +47,23 @@ public class SettingsInteractor implements SettingsInputBoundary {
             settingsOutputBoundary.prepareSuccessView();
         } catch (IllegalArgumentException e) {
             if (e instanceof NumberFormatException) {
-                settingsOutputBoundary.prepareFailView("Questions per player must be an integer between 10 and 50 inclusive.");
+                settingsOutputBoundary.prepareFailView("Questions per player must be an integer between 1 and 50 inclusive.");
             } else {
                 settingsOutputBoundary.prepareFailView(e.getMessage());
             }
         }
+    }
+
+    private static @NotNull QuestionList getCreationSettings(SettingsInputData inputData) throws IllegalArgumentException {
+        int amount = Integer.parseInt(inputData.getAmount());
+        if (amount < 1 | amount > 50) {
+            throw new NumberFormatException();
+        } else if ("Two player".equals(inputData.getGamemode()) & amount % 2 != 0) {
+            throw new IllegalArgumentException("Amount of questions must be even for two player mode.");
+        }
+        return new QuestionList(amount,
+                inputData.getCategory(),
+                inputData.getDifficulty(),
+                inputData.getType());
     }
 }

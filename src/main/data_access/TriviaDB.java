@@ -14,18 +14,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
 /** Concrete implementation of TriviaDBInterface. */
 public class TriviaDB implements TriviaDBInterface {
     /** Client for sending API requests. */
-    private final OkHttpClient client;
+    private final OkHttpClient client = new OkHttpClient();
 
     /**
-     * getQuestions takes in three strings for the category, difficulty and
-     * type. converter converts said strings into the parameters used in the
-     * API call.
+     * The API has a limit on how often each IP can make a call. This variable
+     * keeps the cooldown in milliseconds.
      */
-    private final APIParameterConverter converter;
+    private static final int COOLDOWN_TIME_MS = 5000;
+
+    /** Keeps track of when the last call was made. */
+    private long timeOfLastCall = System.currentTimeMillis() - 5000;
 
     /**
      * Session token. Using a token prevents the same question from being used
@@ -34,18 +35,14 @@ public class TriviaDB implements TriviaDBInterface {
      * inactivity, at which point a new token must be generated. Instructions
      * for generating and refreshing tokens are documented on opentdb.com.
      */
-    private final String token;
+    private final String token = retrieveToken();
 
     /**
-     * Instantiate a DAO by creating a client, APIParameterConverter and
-     * retrieving a session token. APIParameterConverter is an internal class
-     * which is documented below.
-     * */
-    public TriviaDB() {
-        client = new OkHttpClient();
-        converter = new APIParameterConverter();
-        token = retrieveToken();
-    }
+     * getQuestions takes in three strings for the category, difficulty and
+     * type. converter converts said strings into the parameters used in the
+     * API call.
+     */
+    private final APIParameterConverter converter = new APIParameterConverter();
 
     /**
      * Get questions from the API and return them in a QuestionList.
@@ -66,7 +63,7 @@ public class TriviaDB implements TriviaDBInterface {
      */
     @Override
     public QuestionList getQuestions(int amount, String category, String difficulty, String type) throws IOException {
-        // Generate the url for the API call.
+        // generate the url for the API call
         StringBuilder url = new StringBuilder("https://opentdb.com/api.php?");
         url.append("amount=").append(amount);
         Integer convertedCategory = converter.convertCategory(category);
@@ -82,24 +79,21 @@ public class TriviaDB implements TriviaDBInterface {
             url.append("&type=").append(convertedType);
         }
         url.append("&token=").append(token);
-        // Make the API call.
-        JSONObject responseBody = this.APICall(url.toString());
-        // If there aren't enough questions, refresh the token and try again.
-        if (responseBody.getInt("response_code") == 1) {
-            this.refreshToken();
+        // make the API call
+        JSONObject responseBody = APICall(url.toString());
+        if (responseBody.getInt("response_code") == 4) { // If there aren't enough questions, refresh the token and try again.
+            refreshToken();
             responseBody = this.APICall(url.toString());
-        }
-        // If anything else unexpected happens, throw a RuntimeException.
-        if (responseBody.getInt("response_code") == 4) {
+        } else if (responseBody.getInt("response_code") == 1) {
             throw new IOException("There are not enough questions with the selected settings.");
-        } else if (responseBody.getInt("response_code") != 0) {
+        } else if (responseBody.getInt("response_code") != 0) { // If anything else unexpected happens, throw a RuntimeException.
             throw new RuntimeException("Got this from the API call->" + responseBody);
         }
         JSONArray questions = responseBody.getJSONArray("results");
-        // Store the questions as a QuestionList.
+        // store the questions as a QuestionList
         QuestionList questionList = new QuestionList(amount, category, difficulty, type);
         for (int i = 0; i < questions.length(); i++) {
-            // Make a new Question and add it to questionList.
+            // make a new Question and add it to questionList
             JSONObject questionJSON = questions.getJSONObject(i);
             String questionText = StringEscapeUtils.unescapeHtml4(questionJSON.getString("question"));
             String correctAnswer = StringEscapeUtils.unescapeHtml4(questionJSON.getString("correct_answer"));
@@ -148,11 +142,22 @@ public class TriviaDB implements TriviaDBInterface {
      * @return the response in the form of a JSONObject.
      */
     private JSONObject APICall(String url) {
+        // wait until cooldown period has ended
+        long millisSinceLastCall = System.currentTimeMillis() - timeOfLastCall;
+        if (millisSinceLastCall < COOLDOWN_TIME_MS) {
+            try {
+                Thread.sleep(COOLDOWN_TIME_MS - millisSinceLastCall);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        // make the call and return response
         Request request = new Request.Builder()
                 .url(url)
                 .build();
         try {
             Response response = client.newCall(request).execute();
+            timeOfLastCall = System.currentTimeMillis();
             if (response.body() == null) {
                 throw new RuntimeException("Got this from the API call->" + response);
             }
@@ -178,18 +183,18 @@ public class TriviaDB implements TriviaDBInterface {
 
         /** Instantiates a converter by setting up categoryMap, difficultyMap and typeMap. */
         private APIParameterConverter() {
-            // Put key-value pairs into categoryMap.
+            // put key-value pairs into categoryMap
             String[] keys = QuestionSettings.getCategoryOptions();
             categoryMap.put("Any Category", null);
             for (int i = 1; i < keys.length; i++) {
                 categoryMap.put(keys[i], i + 8);
             }
-            // Put key-value pairs into difficultyMap.
+            // put key-value pairs into difficultyMap
             difficultyMap.put("Any Difficulty", null);
             difficultyMap.put("Easy", "easy");
             difficultyMap.put("Medium", "medium");
             difficultyMap.put("Hard", "hard");
-            // Put key-value pairs into typeMap.
+            // put key-value pairs into typeMap
             typeMap.put("Any Type", null);
             typeMap.put("Multiple Choice", "multiple");
             typeMap.put("True / False", "boolean");
