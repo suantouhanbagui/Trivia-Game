@@ -91,7 +91,8 @@ public class OnePlayerInteractor extends PlayInteractor {
             String message = player.getName() +
                     " scored " +
                     player.getScore() +
-                    " points.";
+                    "/" +
+                    questionList.size();
             playOutputBoundary.prepareSuccessView(message);
             // save results
             try {
