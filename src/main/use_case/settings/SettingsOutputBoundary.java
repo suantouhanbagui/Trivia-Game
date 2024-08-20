@@ -1,5 +1,6 @@
 package main.use_case.settings;
 
+/** Output boundary for settings presenter. */
 public interface SettingsOutputBoundary {
     /** Sets the settings view as the active view. */
     void prepareView();

@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-/** This is the window where users select settings in the settings use case. */
+/** Window where users select settings in the settings use case. */
 public class SettingsView extends JPanel implements ActionListener, PropertyChangeListener {
     /** Invoked when confirmButton is pressed. */
     private final SettingsController controller;
