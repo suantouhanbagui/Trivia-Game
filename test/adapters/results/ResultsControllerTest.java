@@ -11,8 +11,11 @@ import main.use_case.results.ResultsOutputBoundary;
 import main.view.ViewManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import javax.swing.*;
+
+import static org.mockito.Mockito.mock;
 
 class ResultsControllerTest {
     private ResultsInputBoundary resultsInputBoundary;
@@ -36,26 +39,19 @@ class ResultsControllerTest {
 
     @Test
     void prepareView() {
-        this.resultsInputBoundary = new ResultsInteractor(resultsOutputBoundary, resultRetrievalDAO){
-            // to see if method is called--actual implementation tested elsewhere
-            public void prepareView(){
-                assert true;
-            }
-        };
-        this.resultsController = new ResultsController((ResultsInteractor) resultsInputBoundary);
+        this.resultsInputBoundary = new ResultsInteractor(resultsOutputBoundary, resultRetrievalDAO);
+        ResultsInputBoundary mockResultsInteractor = mock(resultsInputBoundary.getClass());
+        this.resultsController = new ResultsController((ResultsInteractor) mockResultsInteractor);
         resultsController.prepareView();
-
+        Mockito.verify(mockResultsInteractor).prepareView();
     }
 
     @Test
     void execute() {
-        this.resultsInputBoundary = new ResultsInteractor(resultsOutputBoundary, resultRetrievalDAO){
-            // to see if method is called--actual implementation tested elsewhere
-            public void execute(){
-                assert true;
-            }
-        };
-        this.resultsController = new ResultsController((ResultsInteractor) resultsInputBoundary);
+        this.resultsInputBoundary = new ResultsInteractor(resultsOutputBoundary, resultRetrievalDAO);
+        ResultsInputBoundary mockResultsInteractor = mock(resultsInputBoundary.getClass());
+        this.resultsController = new ResultsController((ResultsInteractor) mockResultsInteractor);
         resultsController.execute();
+        Mockito.verify(mockResultsInteractor).execute();
     }
 }
