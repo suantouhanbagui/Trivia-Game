@@ -27,10 +27,10 @@ public class TwoPlayerInteractor extends PlayInteractor {
 
     @Override
     public void prepareView() {
-        QuestionList creationSettings = settingsDTO.getCreationSettings();
-        int amount = creationSettings.size();
         try {
             // generate questions
+            QuestionList creationSettings = settingsDTO.getCreationSettings();
+            int amount = creationSettings.size();
             questionList = questionGenerator.getQuestions(amount,
                     creationSettings.getCategory(),
                     creationSettings.getDifficulty(),
