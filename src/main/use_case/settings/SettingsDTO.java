@@ -4,7 +4,7 @@ import main.entities.QuestionList;
 
 public class SettingsDTO {
     private final QuestionList creationSettings;
-    private final String gamemode;
+    private String gamemode;
 
     public SettingsDTO(QuestionList creationSettings, String gamemode) {
         this.creationSettings = creationSettings;
@@ -17,6 +17,10 @@ public class SettingsDTO {
 
     public String getGamemode() {
         return gamemode;
+    }
+
+    public void setGamemode(String twoPlayer) {
+        this.gamemode = twoPlayer;
     }
 }
 
