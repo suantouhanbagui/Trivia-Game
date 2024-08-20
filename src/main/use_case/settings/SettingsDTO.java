@@ -6,6 +6,7 @@ import main.entities.QuestionList;
 public class SettingsDTO {
     /** Empty {@code QuestionList} that stores settings for generating questions. */
     private final QuestionList creationSettings;
+
     /** Gamemode chosen by the user. */
     private final String gamemode;
 
@@ -36,6 +37,10 @@ public class SettingsDTO {
      */
     public String getGamemode() {
         return gamemode;
+    }
+
+    public void setGamemode(String twoPlayer) {
+        this.gamemode = twoPlayer;
     }
 }
 

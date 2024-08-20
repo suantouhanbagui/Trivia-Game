@@ -101,4 +101,8 @@ public class SettingsInteractor implements SettingsInputBoundary {
                 inputData.getDifficulty(),
                 inputData.getType());
     }
+
+    public Object getSettingsDTO() {
+        return settingsDTO;
+    }
 }
