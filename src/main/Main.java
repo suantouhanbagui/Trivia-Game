@@ -102,6 +102,7 @@ public class Main {
         manager.addView(twoPlayerView, twoPlayerViewModel);
         manager.addView(startView, startViewModel);
 
+        // show the game window and start music.
         manager.setActiveView(startViewModel.getViewName());
         frame.setVisible(true);
         AdditionalFeatureMusic.playSound("\\z_additional_features\\adventure_game_music.wav");

@@ -11,19 +11,35 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/** This is the window where users select settings in the settings use case. */
 public class SettingsView extends JPanel implements ActionListener, PropertyChangeListener {
+    /** Invoked when confirmButton is pressed. */
     private final SettingsController controller;
+    /** Holds the state of this view. */
     private final SettingsViewModel viewModel;
 
+    /** Text field for the user to input the number of questions to generate. */
     private final JTextField amountField;
+    /** Dropdown for the user to select the category to generate questions from. */
     private final JComboBox<String> categoryDropdown;
+    /** Dropdown for the user to select the difficulty of the generated questions. */
     private final JComboBox<String> difficultyDropdown;
+    /** Dropdown for the user to select the type of the generated questions. */
     private final JComboBox<String> typeDropdown;
+    /** Dropdown for the user to select the gamemode. */
     private final JComboBox<String> gamemodeDropdown;
+    /** Dropdown to choose between light and dark mode. */
     private final JComboBox<String > darkModeDropdown;
 
+    /** Button to confirm setting changes. */
     private final JButton confirmButton;
 
+    /**
+     * Instantiate a new {@code SettingsViewObject}.
+     *
+     * @param controller to invoke when the confirm button is pressed.
+     * @param viewModel that stores the state for this view.
+     */
     public SettingsView(SettingsController controller,
                         SettingsViewModel viewModel) {
         this.controller = controller;
@@ -97,6 +113,11 @@ public class SettingsView extends JPanel implements ActionListener, PropertyChan
         this.setFields(viewModel.getState());
     }
 
+    /**
+     * Invokes the controller, passing in necessary data.
+     *
+     * @param e the {@code ActionEvent}.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         controller.execute(amountField.getText(),
@@ -107,6 +128,12 @@ public class SettingsView extends JPanel implements ActionListener, PropertyChan
                 (String) darkModeDropdown.getSelectedItem());
     }
 
+    /**
+     * Set the values of all dropdowns and text fields to the values specified
+     * by the state.
+     *
+     * @param state stores the values for the dropdowns and text fields.
+     */
     private void setFields(SettingsState state) {
         amountField.setText(state.getAmount());
         categoryDropdown.setSelectedItem(state.getCategory());
@@ -116,6 +143,13 @@ public class SettingsView extends JPanel implements ActionListener, PropertyChan
         darkModeDropdown.setSelectedItem(state.getDarkMode());
     }
 
+    /**
+     * Must be called whenever the state of {@code viewModel} is changed. Displays an
+     * error message if the state has one.
+     *
+     * @param evt A {@code PropertyChangeEvent} object describing the event source
+     *        and the property that has changed.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         SettingsState state = (SettingsState) evt.getNewValue();
