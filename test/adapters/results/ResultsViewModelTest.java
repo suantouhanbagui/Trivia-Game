@@ -20,8 +20,9 @@ class ResultsViewModelTest {
 
     @Test
     void getState() {
-        ResultsState expected = new ResultsState();
-        assertEquals(expected, resultsViewModel.getState());
+        String expectedResults = "";
+        assertEquals(expectedResults, resultsViewModel.getState().getResults());
+        assertNull(resultsViewModel.getState().getError());
     }
 
     @Test
