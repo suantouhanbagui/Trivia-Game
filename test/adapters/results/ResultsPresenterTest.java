@@ -19,8 +19,8 @@ class ResultsPresenterTest {
     private final JFrame dummyFrame = new JFrame();
     private ViewManager viewManager;
     private ResultsPresenter resultsPresenter;
-    private String dummyResults = "some results here";
-    private String dummyError = "some error here";
+    private final String dummyResults = "some results here";
+    private final String dummyError = "some error here";
     private ResultsOutputData resultsOutputData;
 
     @BeforeEach

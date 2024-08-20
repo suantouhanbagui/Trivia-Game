@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ResultsStateTest {
-    private String dummyResults = "some results here";
-    private String dummyError = "some error here";
+    private final String dummyResults = "some results here";
+    private final String dummyError = "some error here";
     private ResultsState resultsState;
 
     @BeforeEach

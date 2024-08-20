@@ -22,7 +22,7 @@ class ResultsControllerTest {
     private ViewManager viewManager;
     private ResultRetrievalDAO resultRetrievalDAO;
     private ResultsController resultsController;
-    private JFrame dummyFrame = new JFrame();
+    private final JFrame dummyFrame = new JFrame();
 
     @BeforeEach
     void setUp() {

@@ -10,8 +10,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class ResultsViewModelTest {
     private ResultsViewModel resultsViewModel;
     private ResultsState testResultsState;
-    private String dummyResults = "some results here";
-    private String dummyError = "some error here";
+    private final String dummyResults = "some results here";
+    private final String dummyError = "some error here";
 
     @BeforeEach
     void setUp() {
