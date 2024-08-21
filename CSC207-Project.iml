@@ -121,5 +121,6 @@
     </orderEntry>
     <orderEntry type="library" name="apache.commons.lang3" level="project" />
     <orderEntry type="library" name="formdev.flatlaf.intellij.themes" level="project" />
+    <orderEntry type="library" name="mockito.junit.jupiter" level="project" />
   </component>
 </module>

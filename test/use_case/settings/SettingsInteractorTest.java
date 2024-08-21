@@ -51,6 +51,18 @@ class SettingsInteractorTest {
     }
 
     @Test
+    void prepareView(){
+        SettingsOutputBoundary settingsPresenter = new SettingsPresenter(settingsViewModel, startViewModel, viewManager) {
+            @Override
+            public void prepareView() {
+                assert true;
+            }
+        };
+        this.settingsInteractor = new SettingsInteractor(settingsPresenter);
+        settingsInteractor.prepareView();
+    }
+
+    @Test
     void execute() {
         SettingsOutputBoundary settingsPresenter = new SettingsPresenter(settingsViewModel, startViewModel, viewManager) {
             @Override

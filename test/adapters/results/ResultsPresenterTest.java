@@ -36,8 +36,6 @@ class ResultsPresenterTest {
     void prepareView() {
         this.viewManager = new ViewManager(dummyFrame){
             public void setActiveView(String viewName) {
-                // test if method is called
-                assert true;
                 ResultsState state = resultsViewModel.getState();
                 String actualResults = state.getResults();
                 // test that correct results and error set in state
