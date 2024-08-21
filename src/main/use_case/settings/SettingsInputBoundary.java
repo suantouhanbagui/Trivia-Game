@@ -1,5 +1,6 @@
 package main.use_case.settings;
 
+/** Input boundary for settings use case interactor. */
 public interface SettingsInputBoundary {
     /** Set the view associated with the settings use case as the active view. */
     void prepareView();

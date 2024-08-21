@@ -1,5 +1,6 @@
 package main.use_case.settings;
 
+/** Input data object for {@code SettingsInputBoundary}. */
 public class SettingsInputData {
     /** Amount of questions. */
     private final String amount;
