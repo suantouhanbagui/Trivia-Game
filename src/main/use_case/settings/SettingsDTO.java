@@ -8,7 +8,7 @@ public class SettingsDTO {
     private final QuestionList creationSettings;
 
     /** Gamemode chosen by the user. */
-    private final String gamemode;
+    private String gamemode;
 
     /**
      * Instantiate a new {@code SettingsDTO}.
