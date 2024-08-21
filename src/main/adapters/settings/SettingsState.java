@@ -129,9 +129,9 @@ public class SettingsState {
     }
 
     /**
-     * Getter for the error message.
+     * Retrieve the stored error message.
      *
-     * @return the stored error message, or null if there is none.
+     * @return the stored error message, or null if there is no message.
      */
     public String getError() {
         return error;

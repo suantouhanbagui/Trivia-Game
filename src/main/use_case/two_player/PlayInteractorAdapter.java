@@ -31,8 +31,8 @@ public class PlayInteractorAdapter implements PlayInputBoundary, PropertyChangeL
     }
 
     @Override
-    public void execute(PlayInputData playInputData) {
-        activeInteractor.execute(playInputData);
+    public void execute(PlayInputData inputData) {
+        activeInteractor.execute(inputData);
     }
 
     @Override

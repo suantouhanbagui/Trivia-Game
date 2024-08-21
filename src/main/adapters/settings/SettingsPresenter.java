@@ -36,7 +36,7 @@ public class SettingsPresenter implements SettingsOutputBoundary {
 
     /**
      * Present an error message to the user indicating the settings could not
-     * be saved.
+     * be saved without changing the active screen.
      *
      * @param error message that will be displayed to the user.
      */

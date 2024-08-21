@@ -67,9 +67,9 @@ public class TwoPlayerInteractor extends PlayInteractor {
     }
 
     @Override
-    public void execute(PlayInputData playInputData) {
+    public void execute(PlayInputData inputData) {
         // increment current player's score if the answer is correct
-        String answer = playInputData.getAnswer();
+        String answer = inputData.getAnswer();
         String correctAnswer = question.getCorrectAnswer();
         Boolean previousCorrect = answer.equals(correctAnswer);
         if (previousCorrect) {
