@@ -4,10 +4,7 @@ import main.data_access.ResultRecordingDAO;
 import main.data_access.TriviaDBInterface;
 import main.entities.Question;
 import main.entities.QuestionList;
-import main.use_case.play.OnePlayerInteractor;
-import main.use_case.play.PlayInputData;
-import main.use_case.play.PlayOutputBoundary;
-import main.use_case.play.PlayOutputData;
+import main.use_case.play.*;
 import main.use_case.settings.SettingsDTO;
 import main.use_case.settings.SettingsInteractor;
 import main.use_case.settings.SettingsOutputBoundary;
@@ -15,11 +12,13 @@ import main.use_case.two_player.PlayInteractorAdapter;
 import main.use_case.two_player.TwoPlayerInteractor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 class PlayInteractorAdapterTest {
     private OnePlayerInteractor onePlayerInteractor;
@@ -64,8 +63,13 @@ class PlayInteractorAdapterTest {
     }
 
     @Test
-    void excute() {
-
+    void execute() {
+        OnePlayerInteractor mockOnePlayInteractor = mock(onePlayerInteractor.getClass());
+        playInteractorAdapter = new PlayInteractorAdapter(mockOnePlayInteractor,
+                twoPlayerInteractor, settingsInteractor);
+        playInteractorAdapter.execute(testPlayInputData);
+        // test to see if the required method is called
+        Mockito.verify(mockOnePlayInteractor).execute(testPlayInputData);
     }
 
     // Test implementations copied from the singlePlayerInteractorTest

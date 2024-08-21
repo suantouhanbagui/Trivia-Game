@@ -1,9 +1,8 @@
 package use_case.two_player;
 
-import main.entities.Player;
+
 import main.entities.Question;
 import main.entities.QuestionList;
-import main.use_case.play.PlayInputBoundary;
 import main.use_case.play.PlayInputData;
 import main.use_case.play.PlayOutputData;
 import main.use_case.settings.SettingsDTO;
@@ -15,6 +14,7 @@ import main.use_case.play.PlayOutputBoundary;
 import main.use_case.settings.SettingsInteractor;
 import main.data_access.TriviaDBInterface;
 import main.data_access.ResultRecordingDAO;
+
 
 
 import java.io.IOException;
@@ -41,6 +41,8 @@ class TwoPlayerInteractorTest {
         QuestionList questionList = new QuestionList();
         SettingsDTO settingsDTO = new SettingsDTO(questionList, "Two Player");
         settingsInteractor.setSettingsDTO(settingsDTO);
+
+        testPlayInputData = new TestPlayInputData("Sample Answer");
 
         twoPlayerInteractor = new TwoPlayerInteractor(playOutputBoundary, settingsInteractor,
                 triviaDBInterface, resultRecordingDAO);
@@ -69,9 +71,61 @@ class TwoPlayerInteractorTest {
         assertNotNull(playOutputBoundary.getFailMessage());
     }
 
-    @Test
-    void execute() {
 
+    @Test
+    void executeSuccessHasNext() {
+        this.playOutputBoundary = new TestPlayOutputBoundary(){
+            @Override
+            public void prepareSuccessView(String message) {
+                super.prepareSuccessView(message);
+            }
+            @Override
+            public void prepareFailView(String error) {
+                fail("Failure is unexpected");
+            }
+        };
+        QuestionList questionList = new QuestionList();
+        questionList.addQuestion(new Question("Sample Question", "Sample Answer",
+                new ArrayList<>(), "Easy", "General", "Multiple Choice"));
+        questionList.addQuestion(new Question("Sample Question", "Sample Answer",
+                new ArrayList<>(), "Easy", "General", "Multiple Choice"));
+        triviaDBInterface.setQuestions(questionList);
+        String[] names = {"Player1", "Player2"};
+        playOutputBoundary.setNames(names);
+        twoPlayerInteractor = new TwoPlayerInteractor(playOutputBoundary, settingsInteractor,
+                triviaDBInterface, resultRecordingDAO);
+        twoPlayerInteractor.prepareView();
+        twoPlayerInteractor.execute(testPlayInputData);
+
+    }
+
+    @Test
+    void executeSuccessNoNext() {
+        this.playOutputBoundary = new TestPlayOutputBoundary(){
+            @Override
+            public void prepareSuccessView(String message) {
+                super.prepareSuccessView(message);
+            }
+            @Override
+            public void prepareFailView(String error) {
+                fail("Failure is unexpected");
+            }
+        };
+        QuestionList questionList = new QuestionList(){
+            @Override
+            public boolean hasNext() {
+                return !(super.hasNext());
+            }
+        };
+        questionList.addQuestion(new Question("Sample Question", "Sample Answer",
+                new ArrayList<>(), "Easy", "General", "Multiple Choice"));
+        triviaDBInterface.setQuestions(questionList);
+        String[] names = {"Player1", "Player2"};
+        playOutputBoundary.setNames(names);
+        twoPlayerInteractor = new TwoPlayerInteractor(playOutputBoundary, settingsInteractor,
+                triviaDBInterface, resultRecordingDAO);
+        twoPlayerInteractor.prepareView();
+        twoPlayerInteractor.execute(testPlayInputData);
     }
 
     // Test implementations copied and modified from the singlePlayerInteractorTest
