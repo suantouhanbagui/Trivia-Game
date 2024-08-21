@@ -7,6 +7,7 @@ import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+/** {@code ViewModel} for the settings view. */
 public class SettingsViewModel extends ViewModel {
     /** Instructions for the user regarding what to do on this screen. */
     public final String INSTRUCTIONS_LABEL = "Please select from the dropdowns:";
@@ -68,7 +69,7 @@ public class SettingsViewModel extends ViewModel {
         this.state = state;
     }
 
-    /** Alert the that the state has changed. */
+    /** Alert the view that the state has changed. */
     @Override
     public void firePropertyChanged() {
         support.firePropertyChange("state", null, state);

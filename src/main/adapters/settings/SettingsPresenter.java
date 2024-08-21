@@ -16,7 +16,7 @@ public class SettingsPresenter implements SettingsOutputBoundary {
     /**
      * Instantiate a new {@code SettingsPresenter}.
      *
-     * @param settingsViewModel to update with the results.
+     * @param settingsViewModel to be updated with new results.
      * @param startViewModel view model for the start screen.
      * @param viewManager manages which view is active.
      */
@@ -49,8 +49,7 @@ public class SettingsPresenter implements SettingsOutputBoundary {
     }
 
     /**
-     * Complete the interaction by returning to the start screen and presenting
-     * the user with a message.
+     * Complete the interaction by returning to the start screen.
      */
     @Override
     public void prepareSuccessView() {
