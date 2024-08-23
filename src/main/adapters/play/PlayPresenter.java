@@ -11,7 +11,10 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
-/** Presenter to display results of the play interactor. */
+/**
+ * Presenter that communicates with {@code PlayViewModel} to update view with
+ * the results from {@code OnePlayerInteractor}.
+ */
 public class PlayPresenter implements PlayOutputBoundary {
     /** View model for the starting screen. */
     private final StartViewModel startViewModel;

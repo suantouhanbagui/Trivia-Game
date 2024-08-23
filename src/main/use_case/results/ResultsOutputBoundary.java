@@ -1,5 +1,6 @@
 package main.use_case.results;
 
+/** Output boundary for the results presenters. */
 public interface ResultsOutputBoundary {
     /** Sets the results view as the active view. */
     void prepareView(ResultsOutputData resultsOutputData);

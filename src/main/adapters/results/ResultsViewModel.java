@@ -35,7 +35,8 @@ public class ResultsViewModel extends ViewModel {
         return state;
     }
 
-    /** Setter for the state.
+    /**
+     * Setter for the state.
      *
      * @param state New value for the state.
      */

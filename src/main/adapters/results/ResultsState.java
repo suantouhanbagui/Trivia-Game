@@ -1,5 +1,6 @@
 package main.adapters.results;
 
+/** Stores the state for a results view class. */
 public class ResultsState {
     /** Results that will be displayed to the user. */
     private String results = "";

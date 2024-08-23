@@ -11,7 +11,11 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-/** Window where users select settings in the settings use case. */
+/**
+ * Screen for users to choose game settings and theme. Currently, the user can
+ * choose the amount, category, difficulty and type of question generated,
+ * gamemode and light/dark mode.
+ */
 public class SettingsView extends JPanel implements ActionListener, PropertyChangeListener {
     /** Invoked when confirmButton is pressed. */
     private final SettingsController controller;
@@ -38,7 +42,7 @@ public class SettingsView extends JPanel implements ActionListener, PropertyChan
      * Instantiate a new {@code SettingsViewObject}.
      *
      * @param controller to invoke when the confirm button is pressed.
-     * @param viewModel that stores the state for this view.
+     * @param viewModel stores the state for this view.
      */
     public SettingsView(SettingsController controller,
                         SettingsViewModel viewModel) {
@@ -114,7 +118,8 @@ public class SettingsView extends JPanel implements ActionListener, PropertyChan
     }
 
     /**
-     * Invokes the controller, passing in necessary data.
+     * Invokes the controller when a button is pressed, passing in necessary
+     * data.
      *
      * @param e the {@code ActionEvent}.
      */
@@ -144,11 +149,14 @@ public class SettingsView extends JPanel implements ActionListener, PropertyChan
     }
 
     /**
-     * Must be called whenever the state of {@code viewModel} is changed. Displays an
+     * The view model uses {@code PropertyChangeSupport} from beans to invoke
+     * this and alert the view to change without violating DIP. Display an
      * error message if the state has one.
      *
-     * @param evt A {@code PropertyChangeEvent} object describing the event source
-     *        and the property that has changed.
+     * @param evt A {@code PropertyChangeEvent} object describing the event
+     *        source and the property that has changed.
+     *        {@code evt.getNewValue()} must be castable to
+     *        {@code SettingsState}.
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
