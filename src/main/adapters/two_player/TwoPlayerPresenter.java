@@ -6,18 +6,37 @@ import main.entities.Player;
 import main.use_case.play.PlayOutputData;
 import main.view.ViewManager;
 
+/**
+ * Presenter that communicates with {@code TwoPlayerViewModel} to update the
+ * view with results from {@code TwoPlayerInteractor}.
+ */
 public class TwoPlayerPresenter extends PlayPresenter {
+    /** View model for the two player gamemode screen. */
     private final TwoPlayerViewModel twoPlayerViewModel;
 
+    /**
+     * Instantiate a new {@code TwoPlayerPresenter}.
+     *
+     * @param twoPlayerViewModel - to be updated with new results.
+     * @param startViewModel - view model for the start screen.
+     * @param viewManager - manages which view is active.
+     */
     public TwoPlayerPresenter(TwoPlayerViewModel twoPlayerViewModel,
                               StartViewModel startViewModel,
-                              ViewManager manager) {
+                              ViewManager viewManager) {
         super(twoPlayerViewModel,
                 startViewModel,
-                manager);
+                viewManager);
         this.twoPlayerViewModel = twoPlayerViewModel;
     }
 
+    /**
+     * Present user with feedback on the previous question if applicable, then
+     * present the next question. Set the play view as the active view if not
+     * already the case.
+     *
+     * @param playOutputData contains data to update the view with.
+     */
     @Override
     public void prepareView(PlayOutputData playOutputData) {
         Player[] players = playOutputData.getPlayers();

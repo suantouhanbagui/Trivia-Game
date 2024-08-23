@@ -12,9 +12,20 @@ import main.use_case.settings.SettingsInteractor;
 
 import java.io.IOException;
 
+/** Interactor for the two player use case. */
 public class TwoPlayerInteractor extends PlayInteractor {
+    /** Stores data for the two players. */
     private Player[] players = new Player[2];
 
+    /**
+     * Instantiate a new {@code TwoPlayerInteractor}.
+     *
+     * @param playOutputBoundary the presenter that interacts with the view
+     *        model to display results to the user.
+     * @param settingsInteractor observe for changes to the settings.
+     * @param questionGenerator DAO for generating questions from the API.
+     * @param resultRecordingDAO DAO for recording the results of a game.
+     */
     public TwoPlayerInteractor(PlayOutputBoundary playOutputBoundary,
                                SettingsInteractor settingsInteractor,
                                TriviaDBInterface questionGenerator,
@@ -25,6 +36,10 @@ public class TwoPlayerInteractor extends PlayInteractor {
                 resultRecordingDAO);
     }
 
+    /**
+     * Start a new game, then set the view associated with the gameplay use
+     * case as the active view.
+     */
     @Override
     public void prepareView() {
         try {
@@ -60,16 +75,28 @@ public class TwoPlayerInteractor extends PlayInteractor {
         }
     }
 
+    /**
+     * Reset the player, questionList and question so the interactor is ready
+     * to start a new game.
+     */
     private void reset() {
         players = new Player[2];
         questionList = null;
         question = null;
     }
 
+    /**
+     * Present a feedback message that tells the user if their answer is
+     * correct, then load the next question. If there are no questions left,
+     * go back to the starting screen and display the results of the game
+     * instead of loading a new question.
+     *
+     * @param inputData contains the user's answer to the question.
+     */
     @Override
-    public void execute(PlayInputData playInputData) {
+    public void execute(PlayInputData inputData) {
         // increment current player's score if the answer is correct
-        String answer = playInputData.getAnswer();
+        String answer = inputData.getAnswer();
         String correctAnswer = question.getCorrectAnswer();
         Boolean previousCorrect = answer.equals(correctAnswer);
         if (previousCorrect) {
@@ -116,6 +143,12 @@ public class TwoPlayerInteractor extends PlayInteractor {
         }
     }
 
+    /**
+     * Use {@code resultRecordingDAO} from the superclass to record the results
+     * of the game.
+     *
+     * @throws IOException when the DAO fails to record the results.
+     */
     private void recordResult() throws IOException {
         StringBuilder results = new StringBuilder();
         results.append(players[0].toString())

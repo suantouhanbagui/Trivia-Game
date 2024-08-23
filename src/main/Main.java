@@ -29,7 +29,9 @@ import main.view.*;
 
 import javax.swing.*;
 
+/** Runs the program. */
 public class Main {
+    /** Start the game. */
     public static void main(String[] args) {
         JFrame frame = new JFrame("Trivia Quiz");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

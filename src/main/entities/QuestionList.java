@@ -76,6 +76,11 @@ public class QuestionList extends QuestionSettings {
         return currentQuestionIndex < this.amount;
     }
 
+    /**
+     * Return the number of questions that have already been used.
+     *
+     * @return the number of questions that have already been used.
+     */
     public int getIndex() {
         return currentQuestionIndex;
     }

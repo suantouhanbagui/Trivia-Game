@@ -5,8 +5,9 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.net.URL;
 
-
+/** Class for playing the music. */
 public class AdditionalFeatureMusic {
+    /** Play music. */
     public static void playSound(String fileName) {
         try {
             // Load the sound file from the classpath

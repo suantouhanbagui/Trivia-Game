@@ -54,9 +54,7 @@ public class ResultsPresenter implements ResultsOutputBoundary {
         resultsViewModel.firePropertyChanged();
     }
 
-    /**
-     * Complete the interaction by returning to the start screen.
-     */
+    /** Complete the interaction by returning to the start screen. */
     @Override
     public void prepareSuccessView() {
         ResultsState state = resultsViewModel.getState();

@@ -9,13 +9,27 @@ import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * Screen for users to play the quiz in two player mode. This screen has the
+ * same appearance as the PlayView screen, but also include a scoreboard and
+ * label to tell the players whose turn it is.
+ */
 public class TwoPlayerView extends JPanel implements PropertyChangeListener {
-
+    /** Shows the two players' scores. */
     private final JLabel scoreLabel;
+    /** Shows which player's turn it is. */
     private final JLabel turnLabel;
 
+    /**
+     * Instantiate a new {@code TwoPlayerView}.
+     *
+     * @param controller to invoke when the user answers a question by pressing
+     *        a button.
+     * @param viewModel stores the state for this view.
+     */
     public TwoPlayerView(PlayController controller,
                          TwoPlayerViewModel viewModel) {
+        // use PlayView to show quiz progress, question text and deal with option selection
         PlayView playView = new PlayView(controller, viewModel);
         playView.verticallySquishTextLabel(100);
         viewModel.addPropertyChangeListener(this);
@@ -37,6 +51,17 @@ public class TwoPlayerView extends JPanel implements PropertyChangeListener {
         this.add(turnLabel, BorderLayout.CENTER);
         this.add(playView, BorderLayout.SOUTH);
     }
+
+    /**
+     * The view model uses {@code PropertyChangeSupport} from beans to invoke
+     * this and alert the view to change without violating DIP. If the new
+     * state has an error message, then display it. Otherwise, show the
+     * feedback message if there is one and display the next question.
+     *
+     * @param evt A PropertyChangeEvent object describing the event source and
+     *        the property that has changed. {@code evt.getNewValue()} must be
+     *        castable to {@code PlayState}.
+     */
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
